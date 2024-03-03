@@ -10,6 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.artemissoftware.nestednavigation.product.productNavGraph
 import com.artemissoftware.nestednavigation.ui.theme.NestedNavigationTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,9 +24,11 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.background,
                 ) {
-                    Greeting("Android")
+                    // RootNavigationGraph(navController = rememberNavController())
+
+                    ProductNavHost(navController = rememberNavController())
                 }
             }
         }
@@ -30,10 +36,28 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun ProductNavHost(navController: NavHostController) {
+
+    val BASE_ROUTE = "base"
+    val PRODUCT_ROUTE = "product"
+
+    NavHost(
+        navController = navController,
+        route = BASE_ROUTE,
+        startDestination = PRODUCT_ROUTE,
+    ) {
+        productNavGraph(
+            route = PRODUCT_ROUTE,
+            navController = navController,
+        )
+    }
+}
+
+@Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
