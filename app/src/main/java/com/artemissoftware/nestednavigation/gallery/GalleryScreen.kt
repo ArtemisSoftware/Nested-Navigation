@@ -32,7 +32,9 @@ import com.artemissoftware.nestednavigation.models.Gallery
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GalleryScreen() {
+fun GalleryScreen(
+    navigateToDetails: (Int) -> Unit,
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -64,6 +66,7 @@ fun GalleryScreen() {
                 GalleryCard(
                     gallery = gallery,
                     onVideoClick = {
+                        navigateToDetails(gallery.id)
                         // --navController.navigate("detailsPage")
                     },
                     modifier = Modifier.fillMaxWidth(),
@@ -118,5 +121,7 @@ private fun GalleryCard(
 @Preview
 @Composable
 private fun GalleryScreenPreview() {
-    GalleryScreen()
+    GalleryScreen(
+        navigateToDetails = {}
+    )
 }

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
@@ -19,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -28,11 +28,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.artemissoftware.nestednavigation.MockData
 import com.artemissoftware.nestednavigation.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsScreen() {
+fun DetailsScreen(id: Int?) {
+    val gallery = remember {
+        MockData.galleries.find { it.id == id } ?: MockData.galleries[0]
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -77,7 +82,7 @@ fun DetailsScreen() {
                 .padding(horizontal = 16.dp),
         ) {
             Image(
-                painter = painterResource(id = R.drawable.food1),
+                painter = painterResource(id = gallery.imageId),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -87,12 +92,12 @@ fun DetailsScreen() {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "our title",
+                text = gallery.title,
                 style = MaterialTheme.typography.headlineSmall,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Our Description",
+                text = gallery.subtitle,
                 textAlign = TextAlign.Justify,
                 style = MaterialTheme.typography.bodyLarge,
             )
@@ -104,5 +109,5 @@ fun DetailsScreen() {
 @Preview
 @Composable
 private fun DetailsPreview() {
-    DetailsScreen()
+    DetailsScreen(id = 1)
 }

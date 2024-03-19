@@ -35,7 +35,7 @@ import com.artemissoftware.nestednavigation.ui.theme.NestedNavigationTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge(
+//        enableEdgeToEdge(
 //            statusBarStyle = SystemBarStyle.light(
 //                Color.TRANSPARENT,
 //                Color.TRANSPARENT,
@@ -44,14 +44,14 @@ class MainActivity : ComponentActivity() {
 //                Color.TRANSPARENT,
 //                Color.TRANSPARENT,
 //            ),
-        )
+//        )
         super.onCreate(savedInstanceState)
         setContent {
             NestedNavigationTheme {
-                var statusBarColor by remember {
-                    mutableStateOf(Color.Yellow)
-                }
-                setStatusBarColor(color = statusBarColor)
+//                var statusBarColor by remember {
+//                    mutableStateOf(Color.Yellow)
+//                }
+//                setStatusBarColor(color = statusBarColor)
 
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         startDestination = SETTINGS_GRAPH,
                         alterStatusBarColor = {
-                            statusBarColor = it
+                            //--statusBarColor = it
                         },
                     )
 
