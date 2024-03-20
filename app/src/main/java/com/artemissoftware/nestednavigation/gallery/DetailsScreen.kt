@@ -29,11 +29,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.artemissoftware.nestednavigation.MockData
-import com.artemissoftware.nestednavigation.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsScreen(id: Int?) {
+fun DetailsScreen(
+    id: Int?,
+    popBackStack: () -> Unit,
+) {
     val gallery = remember {
         MockData.galleries.find { it.id == id } ?: MockData.galleries[0]
     }
@@ -50,9 +52,7 @@ fun DetailsScreen(id: Int?) {
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = {
-                            // --navController.popBackStack()
-                        },
+                        onClick = popBackStack,
                     ) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
@@ -109,5 +109,5 @@ fun DetailsScreen(id: Int?) {
 @Preview
 @Composable
 private fun DetailsPreview() {
-    DetailsScreen(id = 1)
+    DetailsScreen(id = 1, popBackStack = {})
 }

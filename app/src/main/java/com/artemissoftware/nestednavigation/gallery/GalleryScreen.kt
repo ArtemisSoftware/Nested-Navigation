@@ -33,6 +33,7 @@ import com.artemissoftware.nestednavigation.models.Gallery
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GalleryScreen(
+    navigateToSearch: () -> Unit,
     navigateToDetails: (Int) -> Unit,
 ) {
     Scaffold(
@@ -43,9 +44,7 @@ fun GalleryScreen(
                 },
                 actions = {
                     IconButton(
-                        onClick = {
-                            // --navController.navigate("search")
-                        },
+                        onClick = navigateToSearch,
                     ) {
                         Icon(
                             imageVector = Icons.Default.Search,
@@ -122,6 +121,7 @@ private fun GalleryCard(
 @Composable
 private fun GalleryScreenPreview() {
     GalleryScreen(
+        navigateToSearch = {},
         navigateToDetails = {}
     )
 }

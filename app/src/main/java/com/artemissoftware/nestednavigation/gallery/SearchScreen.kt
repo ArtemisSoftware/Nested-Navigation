@@ -11,17 +11,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun SearchScreen() {
+fun SearchScreen(
+    argument: String?,
+    popBackStack: () -> Unit,
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text("This is Search Page ")
+        Text("Your search parameter is:$argument ")
         Button(
-            onClick = {
-                // --navController.popBackStack("mainPage", false)
-            },
+            onClick = popBackStack,
         ) {
             Text("Go to Main Page")
         }
@@ -31,5 +32,8 @@ fun SearchScreen() {
 @Preview
 @Composable
 private fun SearchPreview() {
-    SearchScreen()
+    SearchScreen(
+        popBackStack = {},
+        argument = "Berries",
+    )
 }

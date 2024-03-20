@@ -24,6 +24,9 @@ fun RootNavigationGraph(
     ) {
         composable(MainRoute.Gallery.route) {
             GalleryScreen(
+                navigateToSearch = {
+                    navController.navigate("search/Berries")
+                },
                 navigateToDetails = {
                     navController.navigate("details/$it")
                 },
@@ -35,11 +38,27 @@ fun RootNavigationGraph(
             arguments = MainRoute.Details.arguments,
         ) { backStackEntry ->
             val galleryId = backStackEntry.arguments?.getInt("id")
-            DetailsScreen(galleryId)
+            DetailsScreen(
+                galleryId,
+                popBackStack = {
+                    navController.popBackStack()
+                },
+            )
         }
 
-        composable(MainRoute.Search.route) {
-            SearchScreen()
+        composable(
+            route = MainRoute.Search.route,
+            arguments = MainRoute.Search.arguments,
+        ) { backStackEntry ->
+
+            val argument = backStackEntry.arguments?.getString("args")
+
+            SearchScreen(
+                argument = argument,
+                popBackStack = {
+                    navController.popBackStack(MainRoute.Gallery.route, false)
+                },
+            )
         }
     }
 }
@@ -50,7 +69,10 @@ sealed class MainRoute(val route: String, val arguments: List<NamedNavArgument> 
         route = "details/{id}",
         arguments = listOf(navArgument("id") { type = NavType.IntType }),
     )
-    data object Search : MainRoute("search")
+    data object Search : MainRoute(
+        route = "search/{args}",
+        arguments = listOf(navArgument("args") { type = NavType.StringType }),
+    )
 }
 
 //    NavHost(
