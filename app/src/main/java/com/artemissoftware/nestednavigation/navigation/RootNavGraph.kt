@@ -6,11 +6,11 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.artemissoftware.nestednavigation.gallery.DetailsScreen
-import com.artemissoftware.nestednavigation.gallery.GalleryScreen
-import com.artemissoftware.nestednavigation.gallery.SearchScreen
+import com.artemissoftware.nestednavigation.authentication.AUTHENTICATION_GRAPH
+import com.artemissoftware.nestednavigation.authentication.authNavGraph
+
+const val ROOT_GRAPH = "root_graph"
 
 @Composable
 fun RootNavigationGraph(
@@ -20,47 +20,58 @@ fun RootNavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = MainRoute.Gallery.route,
+        route = ROOT_GRAPH,
+        startDestination = AUTHENTICATION_GRAPH,
     ) {
-        composable(MainRoute.Gallery.route) {
-            GalleryScreen(
-                navigateToSearch = {
-                    navController.navigate("search/Berries")
-                },
-                navigateToDetails = {
-                    navController.navigate("details/$it")
-                },
-            )
-        }
-
-        composable(
-            route = MainRoute.Details.route,
-            arguments = MainRoute.Details.arguments,
-        ) { backStackEntry ->
-            val galleryId = backStackEntry.arguments?.getInt("id")
-            DetailsScreen(
-                galleryId,
-                popBackStack = {
-                    navController.popBackStack()
-                },
-            )
-        }
-
-        composable(
-            route = MainRoute.Search.route,
-            arguments = MainRoute.Search.arguments,
-        ) { backStackEntry ->
-
-            val argument = backStackEntry.arguments?.getString("args")
-
-            SearchScreen(
-                argument = argument,
-                popBackStack = {
-                    navController.popBackStack(MainRoute.Gallery.route, false)
-                },
-            )
-        }
+        authNavGraph(navController = navController)
+//        composable(route = Graph.MAIN_SCREEN_PAGE) {
+//            MainScreen()
+//        }
     }
+
+//    NavHost(
+//        navController = navController,
+//        startDestination = MainRoute.Gallery.route,
+//    ) {
+//        composable(MainRoute.Gallery.route) {
+//            GalleryScreen(
+//                navigateToSearch = {
+//                    navController.navigate("search/Berries")
+//                },
+//                navigateToDetails = {
+//                    navController.navigate("details/$it")
+//                },
+//            )
+//        }
+//
+//        composable(
+//            route = MainRoute.Details.route,
+//            arguments = MainRoute.Details.arguments,
+//        ) { backStackEntry ->
+//            val galleryId = backStackEntry.arguments?.getInt("id")
+//            DetailsScreen(
+//                galleryId,
+//                popBackStack = {
+//                    navController.popBackStack()
+//                },
+//            )
+//        }
+//
+//        composable(
+//            route = MainRoute.Search.route,
+//            arguments = MainRoute.Search.arguments,
+//        ) { backStackEntry ->
+//
+//            val argument = backStackEntry.arguments?.getString("args")
+//
+//            SearchScreen(
+//                argument = argument,
+//                popBackStack = {
+//                    navController.popBackStack(MainRoute.Gallery.route, false)
+//                },
+//            )
+//        }
+//    }
 }
 
 sealed class MainRoute(val route: String, val arguments: List<NamedNavArgument> = emptyList()) {
