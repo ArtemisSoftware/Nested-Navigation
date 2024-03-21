@@ -27,7 +27,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -52,7 +51,7 @@ fun LoginScreen(
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Image(
             painter = painterResource(id = R.drawable.food14),
@@ -60,7 +59,7 @@ fun LoginScreen(
             modifier = Modifier
                 .width(100.dp)
                 .height(100.dp)
-                .padding(bottom = 16.dp)
+                .padding(bottom = 16.dp),
         )
         Text(text = "*** Login Screen ***")
 
@@ -72,7 +71,7 @@ fun LoginScreen(
             leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = null) },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(8.dp),
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -86,7 +85,7 @@ fun LoginScreen(
                 IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
                     Icon(
                         imageVector = if (passwordVisibility) Icons.Default.VisibilityOff else Icons.Default.Visibility,
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 }
             },
@@ -94,16 +93,16 @@ fun LoginScreen(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(8.dp),
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = navigateToLogin ,
+            onClick = navigateToLogin,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(8.dp),
         ) {
             Text(text = "Login")
         }
@@ -114,14 +113,14 @@ fun LoginScreen(
             onClick = navigateToSignUp,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(8.dp),
         ) {
             Text(text = "Don't have an account? Register")
         }
         Spacer(modifier = Modifier.height(16.dp))
 
         TextButton(
-            onClick = navigateToForgotPassword
+            onClick = navigateToForgotPassword,
         ) {
             Text(text = "Forgot Password?")
         }

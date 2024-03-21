@@ -6,9 +6,12 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.artemissoftware.nestednavigation.authentication.AUTHENTICATION_GRAPH
 import com.artemissoftware.nestednavigation.authentication.authNavGraph
+import com.artemissoftware.nestednavigation.main.MAIN_GRAPH
+import com.artemissoftware.nestednavigation.main.MainScreen
 
 const val ROOT_GRAPH = "root_graph"
 
@@ -24,9 +27,10 @@ fun RootNavigationGraph(
         startDestination = AUTHENTICATION_GRAPH,
     ) {
         authNavGraph(navController = navController)
-//        composable(route = Graph.MAIN_SCREEN_PAGE) {
-//            MainScreen()
-//        }
+
+        composable(route = MAIN_GRAPH) {
+            MainScreen()
+        }
     }
 
 //    NavHost(

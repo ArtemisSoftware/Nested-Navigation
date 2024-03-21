@@ -11,16 +11,15 @@ const val AUTHENTICATION_GRAPH = "auth_graph"
 fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
     navigation(
         route = AUTHENTICATION_GRAPH,
-        startDestination = AuthScreen.Splash.route
+        startDestination = AuthScreen.Splash.route,
     ) {
-
         composable(route = AuthScreen.Splash.route) {
             SplashScreen(
                 navigateToLogin = {
-                navController.navigate(AuthScreen.Login.route) {
-                    popUpTo(AuthScreen.Splash.route) { inclusive = true }
-                }
-                }
+                    navController.navigate(AuthScreen.Login.route) {
+                        popUpTo(AuthScreen.Splash.route) { inclusive = true }
+                    }
+                },
             )
         }
 
@@ -47,22 +46,22 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
                     navController.navigate(MAIN_GRAPH) {
                         popUpTo(AuthScreen.SignUp.route) { inclusive = true }
                     }
-                }
+                },
             )
         }
         composable(route = AuthScreen.Forgot.route) {
             ForgotPasswordScreen(
                 popBackStack = {
                     navController.popBackStack()
-                }
+                },
             )
         }
     }
 }
 
 sealed class AuthScreen(val route: String) {
-    data object Splash : AuthScreen(route = "SPLASH")
-    data object Login : AuthScreen(route = "LOGIN")
-    data object SignUp : AuthScreen(route = "SIGN_UP")
-    data object Forgot : AuthScreen(route = "FORGOT")
+    data object Splash : AuthScreen(route = "splash")
+    data object Login : AuthScreen(route = "login")
+    data object SignUp : AuthScreen(route = "sign_up")
+    data object Forgot : AuthScreen(route = "forgot")
 }
