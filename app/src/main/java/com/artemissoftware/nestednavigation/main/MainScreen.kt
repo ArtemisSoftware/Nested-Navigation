@@ -24,9 +24,12 @@ import com.artemissoftware.nestednavigation.composables.topbar.SimpleLightTopApp
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun MainScreen(navController: NavHostController = rememberNavController()) {
+
     Scaffold(
         topBar = {
-            SimpleLightTopAppBar("Nested Navigation Demo")
+            if (navController.showTopBar()) {
+                SimpleLightTopAppBar("Nested Navigation Demo")
+            }
         },
         bottomBar = {
             BottomBar(navController = navController)
@@ -49,7 +52,7 @@ fun BottomBar(navController: NavHostController) {
     val currentDestination = navBackStackEntry?.destination
 
     val bottomBarDestination = screens.any { it.route == currentDestination?.route }
-    if (bottomBarDestination) {
+    if (navController.showBottomBar()) {
         NavigationBar {
             screens.forEach { screen ->
                 AddItem(
@@ -60,6 +63,30 @@ fun BottomBar(navController: NavHostController) {
             }
         }
     }
+}
+
+@Composable
+fun NavHostController.showBottomBar(): Boolean {
+    val navBackStackEntry by this.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    val screens = listOf(
+        BottomBarItem.Home,
+        BottomBarItem.Profile,
+        BottomBarItem.Settings,
+    )
+    return screens.any { it.route == currentDestination?.route }
+}
+
+@Composable
+fun NavHostController.showTopBar(): Boolean {
+    val navBackStackEntry by this.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    val screens = listOf(
+        BottomBarItem.Home,
+        BottomBarItem.Profile,
+        BottomBarItem.Settings,
+    )
+    return screens.any { it.route == currentDestination?.route }
 }
 
 @Composable

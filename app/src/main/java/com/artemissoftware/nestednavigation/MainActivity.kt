@@ -5,35 +5,37 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.Animatable
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.tween
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.artemissoftware.nestednavigation.images.IMAGES_GRAPH
 import com.artemissoftware.nestednavigation.navigation.RootNavigationGraph
 import com.artemissoftware.nestednavigation.product.productNavGraph
 import com.artemissoftware.nestednavigation.settings.SETTINGS_GRAPH
 import com.artemissoftware.nestednavigation.ui.theme.NestedNavigationTheme
 
 class MainActivity : ComponentActivity() {
+
+    private val mainViewModel by viewModels<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
 //        enableEdgeToEdge(
 //            statusBarStyle = SystemBarStyle.light(
@@ -47,7 +49,31 @@ class MainActivity : ComponentActivity() {
 //        )
         super.onCreate(savedInstanceState)
         setContent {
-            NestedNavigationTheme {
+            val state = mainViewModel.state.collectAsState().value
+            val navController = rememberNavController()
+
+            DisposableEffect(navController) {
+                val observer = LifecycleEventObserver { _, event ->
+                    if (event == Lifecycle.Event.ON_CREATE) {
+                        val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
+                            mainViewModel.onTriggerEvent(MainEvent.ThemeChange(route = destination.route))
+                        }
+                        navController.addOnDestinationChangedListener(listener)
+
+                        onDispose {
+                            navController.removeOnDestinationChangedListener(listener)
+                        }
+                    }
+                }
+
+                lifecycle.addObserver(observer)
+
+                onDispose {
+                    lifecycle.removeObserver(observer)
+                }
+            }
+
+            NestedNavigationTheme(themeType = state.theme) {
 //                var statusBarColor by remember {
 //                    mutableStateOf(Color.Yellow)
 //                }
@@ -58,13 +84,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    val navController = rememberNavController()
-
                     RootNavigationGraph(
                         navController = navController,
                         startDestination = SETTINGS_GRAPH,
                         alterStatusBarColor = {
-                            //--statusBarColor = it
+                            // --statusBarColor = it
                         },
                     )
 

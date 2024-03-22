@@ -1,35 +1,32 @@
-package com.artemissoftware.nestednavigation.navigation
+package com.artemissoftware.nestednavigation.gallery
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.NamedNavArgument
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.artemissoftware.nestednavigation.authentication.AUTHENTICATION_GRAPH
-import com.artemissoftware.nestednavigation.authentication.authNavGraph
-import com.artemissoftware.nestednavigation.main.MAIN_GRAPH
-import com.artemissoftware.nestednavigation.main.MainScreen
+import androidx.navigation.navigation
+import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
-const val ROOT_GRAPH = "root_graph"
+const val GALLERY_GRAPH = "gallery_graph"
 
-@Composable
-fun RootNavigationGraph(
-    navController: NavHostController,
-    startDestination: String,
-    alterStatusBarColor: (Color) -> Unit,
+fun NavGraphBuilder.galleryNavGraph(
+    navController: NavController,
 ) {
-    NavHost(
-        navController = navController,
-        route = ROOT_GRAPH,
-        startDestination = MAIN_GRAPH, //AUTHENTICATION_GRAPH,
+    navigation(
+        route = GALLERY_GRAPH,
+        startDestination = GalleryRoute.Gallery.route,
     ) {
-        authNavGraph(navController = navController)
-
-        composable(route = MAIN_GRAPH) {
-            MainScreen()
+        composable(GalleryRoute.Gallery.route) {
+            GalleryScreen(
+                navigateToSearch = {
+                    navController.navigate("search/Berries")
+                },
+                navigateToDetails = {
+                    navController.navigate("details/$it")
+                },
+            )
         }
     }
 
@@ -78,14 +75,18 @@ fun RootNavigationGraph(
 //    }
 }
 
-
-
-//    NavHost(
-//        navController = navController,
-//        route = Graph.ROOT,
-//        startDestination = startDestination,
-//    ) {
-//        //imagesNavGraph(navController)
-//
-//        //settingsNavGraph(navController, alterStatusBarColor)
-//    }
+sealed class GalleryRoute(
+    val route: String,
+    val arguments: List<NamedNavArgument> = emptyList(),
+    val themeType: ThemeType = ThemeType.GALLERY,
+) {
+    data object Gallery : GalleryRoute("gallery")
+    data object Details : GalleryRoute(
+        route = "details/{id}",
+        arguments = listOf(navArgument("id") { type = NavType.IntType }),
+    )
+    data object Search : GalleryRoute(
+        route = "search/{args}",
+        arguments = listOf(navArgument("args") { type = NavType.StringType }),
+    )
+}

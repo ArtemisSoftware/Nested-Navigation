@@ -18,7 +18,7 @@ fun NavGraphBuilder.settingsNavGraph(
     ) {
         composable(route = SettingsRoute.Settings.route) {
             SettingsScreen(
-                alternateStatusBarColor = alternateStatusBarColor,
+                //alternateStatusBarColor = alternateStatusBarColor,
             )
         }
     }
