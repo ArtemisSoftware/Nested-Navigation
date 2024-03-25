@@ -1,78 +1,141 @@
 package com.artemissoftware.nestednavigation.home
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.artemissoftware.nestednavigation.Constants
+import com.artemissoftware.nestednavigation.composables.NNNavigationBar
+import com.artemissoftware.nestednavigation.composables.NNScaffold
+import com.artemissoftware.nestednavigation.gallery.GALLERY_GRAPH
+import com.artemissoftware.nestednavigation.gallery.navigateToGallerySearch
+import com.artemissoftware.nestednavigation.navigation.TopBarSelector
+import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun HomeScreen() {
-    var selectedItemIndex by rememberSaveable {
-        mutableIntStateOf(0)
-    }
+fun HomeScreen(
+    appState: NRAppState = rememberNRAppState(),
+    changeTheme: (ThemeType) -> Unit,
+) {
+    appState.updateTheme(
+        changeTheme = changeTheme,
+    )
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        bottomBar = {
-            NavigationBar {
-                Constants.bottomNavigationItems.forEachIndexed { index, item ->
-                    NavigationBarItem(
-                        selected = selectedItemIndex == index,
-                        onClick = { selectedItemIndex = index },
-                        label = {
-                            Text(text = item.title)
-                        },
-                        icon = {
-                            BadgedBox(
-                                badge = {
-                                    if (item.badgeCount != null) {
-                                        Badge {
-                                            Text(text = item.badgeCount.toString())
-                                        }
-                                    } else if (item.hasNews) {
-                                        Badge()
-                                    }
-                                },
-                            ) {
-                                Icon(
-                                    imageVector = if (index == selectedItemIndex) item.selectedIcon else item.unselectedIcon,
-                                    contentDescription = item.title,
-                                )
-                            }
-                        },
-                    )
-                }
-            }
+    NNScaffold(
+        topBar = {
+            TopBarSelector(
+                route = appState.currentDestination?.route,
+                navigateToSearch = {
+                    appState.navController.navigateToGallerySearch()
+                },
+            )
+
+//            if (appState.showTopBar()) {
+//                SimpleLightTopAppBar("Nested Navigation Demo")
+//            }
         },
-    ) { values ->
+        content = {
+            HomeNavGraph(
+                navController = appState.navController,
+                startGraph = GALLERY_GRAPH,
+            )
+        },
+        bottomBar = {
+            NNNavigationBar(
+                destinations = appState.topLevelDestinations,
+                currentDestination = appState.currentTopLevelDestination,
+                onNavigateToDestination = appState::navigateToTopLevelDestination,
+            )
+        },
+    )
 
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(values),
-        ) {
-            items(100) {
-                Text(
-                    text = "Item $it",
-                    modifier = Modifier.padding(16.dp),
-                )
-            }
-        }
-    }
+//    Scaffold(
+//        topBar = {
+// //            if (navController.showTopBar()) {
+// //                SimpleLightTopAppBar("Nested Navigation Demo")
+// //            }
+//        },
+//        bottomBar = {
+//             BottomBar(navController = navController)
+//        },
+//    ) { padding ->
+//        var modifier = Modifier.padding(padding)
+//        // HomeNavGraph(navController = navController)
+//    }
 }
+
+// @OptIn(ExperimentalMaterial3Api::class)
+// @Composable
+// fun HomeScreen() {
+//    var selectedItemIndex by rememberSaveable {
+//        mutableIntStateOf(0)
+//    }
+//
+//    NNScaffold(
+//        bottomBar = {
+//            NNNavigationBar(
+//                selectedItemIndex = selectedItemIndex,
+//                onSelect = { selectedItemIndex = it },
+//            )
+//        },
+//        content = {
+//            ItemListScreen()
+//        },
+//    )
+//
+// //
+// //    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+// //
+// //    Scaffold(
+// //        modifier = Modifier
+// //            .fillMaxSize()
+// //            .nestedScroll(scrollBehavior.nestedScrollConnection),
+// //        topBar = {
+// //            CenterAlignedTopBar(title = "Home", scrollBehavior = scrollBehavior)
+// //        },
+// //        bottomBar = {
+// //            NavigationBar {
+// //                Constants.bottomNavigationItems.forEachIndexed { index, item ->
+// //                    NavigationBarItem(
+// //                        selected = selectedItemIndex == index,
+// //                        onClick = { selectedItemIndex = index },
+// //                        label = {
+// //                            Text(text = item.title)
+// //                        },
+// //                        icon = {
+// //                            BadgedBox(
+// //                                badge = {
+// //                                    if (item.badgeCount != null) {
+// //                                        Badge {
+// //                                            Text(text = item.badgeCount.toString())
+// //                                        }
+// //                                    } else if (item.hasNews) {
+// //                                        Badge()
+// //                                    }
+// //                                },
+// //                            ) {
+// //                                Icon(
+// //                                    imageVector = if (index == selectedItemIndex) item.selectedIcon else item.unselectedIcon,
+// //                                    contentDescription = item.title,
+// //                                )
+// //                            }
+// //                        },
+// //                    )
+// //                }
+// //            }
+// //        },
+// //    ) { values ->
+// //
+// //        LazyColumn(
+// //            modifier = Modifier
+// //                .fillMaxSize()
+// //                .padding(values),
+// //        ) {
+// //            items(100) {
+// //                Text(
+// //                    text = "Item $it",
+// //                    modifier = Modifier.padding(16.dp),
+// //                )
+// //            }
+// //        }
+// //    }
+// }
