@@ -4,7 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.artemissoftware.nestednavigation.main.MAIN_GRAPH
+import com.artemissoftware.nestednavigation.home.HOME_GRAPH
 
 const val AUTHENTICATION_GRAPH = "auth_graph"
 
@@ -26,7 +26,7 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
         composable(route = AuthScreen.Login.route) {
             LoginScreen(
                 navigateToLogin = {
-                    navController.navigate(MAIN_GRAPH) {
+                    navController.navigate(HOME_GRAPH) {
                         popUpTo(AuthScreen.Login.route) { inclusive = true }
                     }
                 },
@@ -43,7 +43,7 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
                     navController.popBackStack()
                 },
                 navigateToSignUp = {
-                    navController.navigate(MAIN_GRAPH) {
+                    navController.navigate(HOME_GRAPH) {
                         popUpTo(AuthScreen.SignUp.route) { inclusive = true }
                     }
                 },

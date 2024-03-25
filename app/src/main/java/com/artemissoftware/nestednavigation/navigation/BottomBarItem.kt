@@ -1,10 +1,11 @@
-package com.artemissoftware.nestednavigation.main
+package com.artemissoftware.nestednavigation.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.artemissoftware.nestednavigation.home.MainRoute
 
 sealed class BottomBarItem(
     val route: String,

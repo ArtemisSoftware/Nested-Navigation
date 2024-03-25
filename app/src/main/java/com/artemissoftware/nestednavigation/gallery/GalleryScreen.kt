@@ -41,25 +41,25 @@ fun GalleryScreen(
 ) {
     NNScaffold(
         topBar = {
-            TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                ),
-                title = {
-                    Text("Gallery")
-                },
-                actions = {
-                    IconButton(
-                        onClick = navigateToSearch,
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            modifier = Modifier.padding(end = 8.dp),
-                            contentDescription = null,
-                        )
-                    }
-                },
-            )
+//            TopAppBar(
+//                colors = TopAppBarDefaults.topAppBarColors(
+//                    containerColor = MaterialTheme.colorScheme.primary,
+//                ),
+//                title = {
+//                    Text("Gallery")
+//                },
+//                actions = {
+//                    IconButton(
+//                        onClick = navigateToSearch,
+//                    ) {
+//                        Icon(
+//                            imageVector = Icons.Default.Search,
+//                            modifier = Modifier.padding(end = 8.dp),
+//                            contentDescription = null,
+//                        )
+//                    }
+//                },
+//            )
         },
     ) {
         LazyColumn(
@@ -131,5 +131,4 @@ private fun GalleryScreenPreview() {
             navigateToDetails = {},
         )
     }
-
 }

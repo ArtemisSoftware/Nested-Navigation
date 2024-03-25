@@ -22,31 +22,30 @@ import androidx.compose.ui.unit.dp
 @ExperimentalLayoutApi
 @Composable
 fun SimpleLightTopAppBar(title: String) {
-    val act = LocalContext.current as Activity
+//    val act = LocalContext.current as Activity
     TopAppBar(
         title = {
             Text(title, style = MaterialTheme.typography.titleMedium)
         },
         navigationIcon = {
-            IconButton(
-                onClick = {
-                    act.finish()
-                },
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back",
-                )
-            }
+//            IconButton(
+//                onClick = {
+//                    act.finish()
+//                },
+//            ) {
+//                Icon(
+//                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+//                    contentDescription = "Back",
+//                )
+//            }
         },
         actions = {
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(imageVector = Icons.Filled.Notifications, contentDescription = "Search")
-            }
+//            IconButton(onClick = { /* doSomething() */ }) {
+//                Icon(imageVector = Icons.Filled.Notifications, contentDescription = "Search")
+//            }
         },
-        colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primary,
         ),
-
     )
 }

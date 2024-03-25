@@ -3,7 +3,6 @@ package com.artemissoftware.nestednavigation.main
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -20,10 +19,24 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.artemissoftware.nestednavigation.composables.topbar.SimpleLightTopAppBar
+import com.artemissoftware.nestednavigation.gallery.GalleryRoute
+import com.artemissoftware.nestednavigation.home.HomeNavGraph
+import com.artemissoftware.nestednavigation.navigation.BottomBarItem
+import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun MainScreen(navController: NavHostController = rememberNavController()) {
+fun MainScreen(
+    navController: NavHostController = rememberNavController(),
+    lolo: (ThemeType) -> Unit
+) {
+
+    navController.change(lolo)
+
+//    DisposableEffect(navController) {
+//        val strid = "ddd"
+//        val dd = strid + "dsdfdsf"
+//    }
 
     Scaffold(
         topBar = {
@@ -36,7 +49,7 @@ fun MainScreen(navController: NavHostController = rememberNavController()) {
         },
     ) { padding ->
         var modifier = Modifier.padding(padding)
-        MainNavGraph(navController = navController)
+        //HomeNavGraph(navController = navController)
     }
 }
 
@@ -87,6 +100,24 @@ fun NavHostController.showTopBar(): Boolean {
         BottomBarItem.Settings,
     )
     return screens.any { it.route == currentDestination?.route }
+}
+
+@Composable
+fun NavHostController.change(
+    lolo: (ThemeType) -> Unit
+) {
+    val navBackStackEntry by this.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+val route = currentDestination?.route
+    val kk =  when {
+        GalleryRoute.Gallery.route == route -> GalleryRoute.Gallery.themeType
+//            Red.route == route -> Red.themeType
+//            Blue.route == route -> Blue.themeType
+//            Green.route == route -> Green.themeType
+        else -> ThemeType.DEFAULT
+    }
+
+    lolo.invoke(kk)
 }
 
 @Composable

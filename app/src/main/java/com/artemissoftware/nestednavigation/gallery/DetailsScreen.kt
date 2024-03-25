@@ -8,15 +8,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -29,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.artemissoftware.nestednavigation.MockData
+import com.artemissoftware.nestednavigation.composables.NNScaffold
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,46 +42,48 @@ fun DetailsScreen(
         MockData.galleries.find { it.id == id } ?: MockData.galleries[0]
     }
 
-    Scaffold(
+    NNScaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        "Details",
-                        fontSize = 18.sp,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = popBackStack,
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = null,
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(
-                        onClick = {
-                            // --navController.navigate("search")
-                        },
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Settings,
-                            contentDescription = null,
-                        )
-                    }
-                },
-            )
+//            TopAppBar(
+//                title = {
+//                    Text(
+//                        "Details",
+//                        fontSize = 18.sp,
+//                        overflow = TextOverflow.Ellipsis,
+//                    )
+//                },
+//                navigationIcon = {
+//                    IconButton(
+//                        onClick = popBackStack,
+//                    ) {
+//                        Icon(
+//                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+//                            contentDescription = null,
+//                        )
+//                    }
+//                },
+//                actions = {
+//                    IconButton(
+//                        onClick = {
+//                            // --navController.navigate("search")
+//                        },
+//                    ) {
+//                        Icon(
+//                            imageVector = Icons.Default.Settings,
+//                            contentDescription = null,
+//                        )
+//                    }
+//                },
+//                colors = TopAppBarDefaults.topAppBarColors(
+//                    containerColor = MaterialTheme.colorScheme.primary,
+//                ),
+//            )
         },
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it)
-                .padding(horizontal = 16.dp),
+                .padding(all = 16.dp),
         ) {
             Image(
                 painter = painterResource(id = gallery.imageId),

@@ -17,6 +17,16 @@ class MainViewModel : ViewModel() {
             is MainEvent.ThemeChange -> {
                 updateTheme(route = event.route)
             }
+
+            is MainEvent.Theme_Change -> update_Theme(event.theme)
+        }
+    }
+
+    private fun update_Theme(themeType: ThemeType) = with(_state) {
+        if (value.theme != themeType) {
+            update {
+                it.copy(theme = themeType)
+            }
         }
     }
 

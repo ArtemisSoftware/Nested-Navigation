@@ -1,17 +1,13 @@
 package com.artemissoftware.nestednavigation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import com.artemissoftware.nestednavigation.authentication.AUTHENTICATION_GRAPH
 import com.artemissoftware.nestednavigation.authentication.authNavGraph
-import com.artemissoftware.nestednavigation.main.MAIN_GRAPH
-import com.artemissoftware.nestednavigation.main.MainScreen
+import com.artemissoftware.nestednavigation.home.HOME_GRAPH
+import com.artemissoftware.nestednavigation.home.HomeScreen
+import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
 const val ROOT_GRAPH = "root_graph"
 
@@ -19,17 +15,19 @@ const val ROOT_GRAPH = "root_graph"
 fun RootNavigationGraph(
     navController: NavHostController,
     startDestination: String,
-    alterStatusBarColor: (Color) -> Unit,
+    changeTheme: (ThemeType) -> Unit,
 ) {
     NavHost(
         navController = navController,
         route = ROOT_GRAPH,
-        startDestination = MAIN_GRAPH, //AUTHENTICATION_GRAPH,
+        startDestination = HOME_GRAPH,
     ) {
         authNavGraph(navController = navController)
 
-        composable(route = MAIN_GRAPH) {
-            MainScreen()
+        composable(route = HOME_GRAPH) {
+            HomeScreen(
+                changeTheme = changeTheme,
+            )
         }
     }
 
@@ -77,8 +75,6 @@ fun RootNavigationGraph(
 //        }
 //    }
 }
-
-
 
 //    NavHost(
 //        navController = navController,
