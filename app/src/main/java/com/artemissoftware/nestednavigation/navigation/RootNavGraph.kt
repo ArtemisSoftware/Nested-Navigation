@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.artemissoftware.nestednavigation.authentication.authNavGraph
 import com.artemissoftware.nestednavigation.home.HOME_GRAPH
 import com.artemissoftware.nestednavigation.home.HomeScreen
+import com.artemissoftware.nestednavigation.images.imagesNavGraph
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
 const val ROOT_GRAPH = "root_graph"
@@ -20,7 +21,7 @@ fun RootNavigationGraph(
     NavHost(
         navController = navController,
         route = ROOT_GRAPH,
-        startDestination = HOME_GRAPH,
+        startDestination = startDestination,
     ) {
         authNavGraph(navController = navController)
 
@@ -29,6 +30,8 @@ fun RootNavigationGraph(
                 changeTheme = changeTheme,
             )
         }
+
+        //imagesNavGraph(navController = navController)
     }
 
 //    NavHost(

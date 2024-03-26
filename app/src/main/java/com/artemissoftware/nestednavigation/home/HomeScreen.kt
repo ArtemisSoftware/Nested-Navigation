@@ -13,7 +13,7 @@ import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun HomeScreen(
-    appState: NRAppState = rememberNRAppState(),
+    appState: NNAppState = rememberNRAppState(),
     changeTheme: (ThemeType) -> Unit,
 ) {
     appState.updateTheme(
@@ -26,6 +26,9 @@ fun HomeScreen(
                 route = appState.currentDestination?.route,
                 navigateToSearch = {
                     appState.navController.navigateToGallerySearch()
+                },
+                popback = {
+                    appState.navController.popBackStack()
                 },
             )
 

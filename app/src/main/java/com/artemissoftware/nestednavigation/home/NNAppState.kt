@@ -1,7 +1,6 @@
 package com.artemissoftware.nestednavigation.home
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.util.trace
 import androidx.navigation.NavDestination
@@ -12,13 +11,19 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.artemissoftware.nestednavigation.gallery.GalleryRoute
 import com.artemissoftware.nestednavigation.gallery.navigateToGalleryGraph
+import com.artemissoftware.nestednavigation.images.ImageRoute
+import com.artemissoftware.nestednavigation.images.navigateToImagesGraph
 import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.destinations
 import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.home
+import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.images
+import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.settings
 import com.artemissoftware.nestednavigation.navigation.TopBarDestinations
 import com.artemissoftware.nestednavigation.navigation.TopLevelDestination
+import com.artemissoftware.nestednavigation.settings.SettingsRoute
+import com.artemissoftware.nestednavigation.settings.navigateToSettingsNavGraph
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
-class NRAppState(
+class NNAppState(
     val navController: NavHostController,
 ) {
     val currentDestination: NavDestination?
@@ -28,8 +33,8 @@ class NRAppState(
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() = when (currentDestination?.route) {
             GalleryRoute.Gallery.route -> home
-//            BOOKMARK_ROUTE -> bookmark
-//            NEWS_ROUTE -> news
+            ImageRoute.Images.route -> images
+            SettingsRoute.Settings.route -> settings
             else -> null
         }
 
@@ -57,6 +62,8 @@ class NRAppState(
 
             when (topLevelDestination.route) {
                 home.route -> navController.navigateToGalleryGraph(topLevelNavOptions)
+                images.route -> navController.navigateToImagesGraph(topLevelNavOptions)
+                settings.route -> navController.navigateToSettingsNavGraph(topLevelNavOptions)
 //                search.route -> navController.navigateToSearchGraph(topLevelNavOptions)
 //                bookmark.route -> navController.navigateToBookmarkGraph(topLevelNavOptions)
 //                news.route -> navController.navigateToNewsGraph(topLevelNavOptions)
@@ -100,11 +107,11 @@ class NRAppState(
 @Composable
 fun rememberNRAppState(
     navController: NavHostController = rememberNavController(),
-): NRAppState {
+): NNAppState {
     return remember(
         navController,
     ) {
-        NRAppState(
+        NNAppState(
             navController,
         )
     }

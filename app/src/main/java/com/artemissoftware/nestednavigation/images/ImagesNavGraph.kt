@@ -2,10 +2,14 @@ package com.artemissoftware.nestednavigation.images
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.artemissoftware.nestednavigation.gallery.GALLERY_GRAPH
 
 const val IMAGES_GRAPH = "images_graph"
+
+fun NavController.navigateToImagesGraph(navOptions: NavOptions) = navigate(IMAGES_GRAPH, navOptions)
 
 fun NavGraphBuilder.imagesNavGraph(
     navController: NavController,

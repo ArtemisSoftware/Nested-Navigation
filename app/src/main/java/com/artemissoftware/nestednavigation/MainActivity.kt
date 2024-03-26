@@ -2,9 +2,12 @@ package com.artemissoftware.nestednavigation
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -16,7 +19,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,6 +26,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.artemissoftware.nestednavigation.home.HOME_GRAPH
+import com.artemissoftware.nestednavigation.images.IMAGES_GRAPH
+import com.artemissoftware.nestednavigation.images.ImageFaceScreen
 import com.artemissoftware.nestednavigation.navigation.RootNavigationGraph
 import com.artemissoftware.nestednavigation.product.productNavGraph
 import com.artemissoftware.nestednavigation.ui.theme.NestedNavigationTheme
@@ -33,16 +37,18 @@ class MainActivity : ComponentActivity() {
     private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        enableEdgeToEdge(
-//            statusBarStyle = SystemBarStyle.light(
-//                Color.TRANSPARENT,
-//                Color.TRANSPARENT,
-//            ),
-//            navigationBarStyle = SystemBarStyle.light(
-//                Color.TRANSPARENT,
-//                Color.TRANSPARENT,
-//            ),
-//        )
+        /*
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.light(
+                Color.TRANSPARENT,
+                Color.TRANSPARENT,
+            ),
+            navigationBarStyle = SystemBarStyle.light(
+                Color.TRANSPARENT,
+                Color.TRANSPARENT,
+            ),
+        )
+*/
         super.onCreate(savedInstanceState)
         setContent {
             val state = mainViewModel.state.collectAsState().value
@@ -71,11 +77,14 @@ class MainActivity : ComponentActivity() {
 */
 
             NestedNavigationTheme(themeType = state.theme) {
+                //setStatusBarColor(color = Color.Transparent)
+                //ImageFaceScreen()
+
 //                var statusBarColor by remember {
 //                    mutableStateOf(Color.Yellow)
 //                }
 //                setStatusBarColor(color = statusBarColor)
-
+                //setStatusBarColor(color = Color.Transparent)
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -93,6 +102,7 @@ class MainActivity : ComponentActivity() {
 
                     // HomeScreen()
                 }
+
             }
         }
     }

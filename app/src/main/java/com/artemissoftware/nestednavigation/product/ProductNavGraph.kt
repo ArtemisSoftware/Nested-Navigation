@@ -32,6 +32,17 @@ fun NavGraphBuilder.productNavGraph(
         ) { navBackStackEntry ->
             ProductDetailsScreen(navBackStackEntry, navController)
         }
+        composable(
+            route = "details/{device}",
+            arguments = listOf(
+                navArgument("device") {
+                    type = AssetParamTypeV2()
+                }
+            )
+        ) {
+            val device = it.arguments?.getParcelable<DeviceV2>("device")
+            val dd = device.toString() + ""
+        }
     }
 }
 

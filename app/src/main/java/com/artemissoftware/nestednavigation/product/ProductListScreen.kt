@@ -1,5 +1,7 @@
 package com.artemissoftware.nestednavigation.product
 
+import android.net.Uri
+import android.os.Bundle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,10 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.google.gson.Gson
 
 @Composable
 fun ProductListScreen(navController: NavController) {
     val product = ProductParameters(17)
+    val device = Device("17", "device2")
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -60,6 +64,16 @@ fun ProductListScreen(navController: NavController) {
                 },
             ) {
                 Text("Product List")
+            }
+
+            Button(
+                onClick = {
+                    val device = DeviceV2("1", "My device")
+                    val json = Uri.encode(Gson().toJson(device))
+                    navController.navigate("details/$json")
+                },
+            ) {
+                Text("Device")
             }
         }
     }
