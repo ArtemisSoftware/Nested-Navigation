@@ -20,10 +20,11 @@ fun NNNavigationBar(
     destinations: List<TopLevelDestination>,
     onNavigateToDestination: (TopLevelDestination) -> Unit,
     currentDestination: TopLevelDestination?,
+    modifier: Modifier = Modifier,
 ) {
     currentDestination?.let {
         NavigationBar(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth(),
             containerColor = MaterialTheme.colorScheme.background,
             tonalElevation = 1.dp,
         ) {

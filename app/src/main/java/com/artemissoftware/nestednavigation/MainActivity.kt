@@ -2,7 +2,7 @@ package com.artemissoftware.nestednavigation
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.graphics.Color
+//import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -19,12 +19,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.artemissoftware.nestednavigation.composables.NNSqueleton
 import com.artemissoftware.nestednavigation.home.HOME_GRAPH
 import com.artemissoftware.nestednavigation.images.IMAGES_GRAPH
 import com.artemissoftware.nestednavigation.images.ImageFaceScreen
@@ -49,6 +51,12 @@ class MainActivity : ComponentActivity() {
             ),
         )
 */
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.light(
+                android.graphics.Color.TRANSPARENT,
+                android.graphics.Color.TRANSPARENT,
+            ),
+        )
         super.onCreate(savedInstanceState)
         setContent {
             val state = mainViewModel.state.collectAsState().value
@@ -90,17 +98,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    RootNavigationGraph(
-                        navController = navController,
-                        startDestination = HOME_GRAPH,
-                        changeTheme = {
-                            mainViewModel.onTriggerEvent(MainEvent.Theme_Change(it))
-                        },
-                    )
+                    NNSqueleton()
 
-                    // ProductNavHost(navController = rememberNavController())
+//                    RootNavigationGraph(
+//                        navController = navController,
+//                        startDestination = HOME_GRAPH,
+//                        changeTheme = {
+//                            mainViewModel.onTriggerEvent(MainEvent.Theme_Change(it))
+//                        },
+//                    )
 
-                    // HomeScreen()
                 }
 
             }
@@ -116,8 +123,8 @@ fun setStatusBarColor(color: Color) {
     if (!view.isInEditMode) {
         LaunchedEffect(key1 = color) {
             val window = (view.context as Activity).window
-            window.statusBarColor = color.toArgb()
-            window.navigationBarColor = color.toArgb()
+            window.statusBarColor = android.graphics.Color.TRANSPARENT
+            //window.navigationBarColor = color.toArgb()
         }
     }
 }
