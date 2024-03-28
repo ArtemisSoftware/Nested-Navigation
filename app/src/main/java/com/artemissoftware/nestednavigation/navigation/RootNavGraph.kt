@@ -8,6 +8,7 @@ import com.artemissoftware.nestednavigation.authentication.authNavGraph
 import com.artemissoftware.nestednavigation.home.HOME_GRAPH
 import com.artemissoftware.nestednavigation.home.HomeScreen
 import com.artemissoftware.nestednavigation.images.imagesNavGraph
+import com.artemissoftware.nestednavigation.randomimages.randomImagesNavGraph
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
 const val ROOT_GRAPH = "root_graph"
@@ -30,6 +31,8 @@ fun RootNavigationGraph(
                 changeTheme = changeTheme,
             )
         }
+
+        randomImagesNavGraph(navController = navController)
 
         //imagesNavGraph(navController = navController)
     }
