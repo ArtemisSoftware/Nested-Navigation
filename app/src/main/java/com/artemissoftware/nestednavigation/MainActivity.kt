@@ -16,22 +16,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.artemissoftware.nestednavigation.composables.NNSqueleton
-import com.artemissoftware.nestednavigation.home.HOME_GRAPH
-import com.artemissoftware.nestednavigation.images.IMAGES_GRAPH
-import com.artemissoftware.nestednavigation.images.ImageFaceScreen
 import com.artemissoftware.nestednavigation.navigation.RootNavigationGraph
 import com.artemissoftware.nestednavigation.product.productNavGraph
+import com.artemissoftware.nestednavigation.randomimages.RANDOM_IMAGES_GRAPH
+import com.artemissoftware.nestednavigation.randomimages.RandomImageRoute
+import com.artemissoftware.nestednavigation.randomimages.RandomImagesListScreen
 import com.artemissoftware.nestednavigation.ui.theme.NestedNavigationTheme
 
 class MainActivity : ComponentActivity() {
@@ -98,15 +94,15 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    NNSqueleton()
+                    //NNSqueleton()
 
-//                    RootNavigationGraph(
-//                        navController = navController,
-//                        startDestination = HOME_GRAPH,
-//                        changeTheme = {
-//                            mainViewModel.onTriggerEvent(MainEvent.Theme_Change(it))
-//                        },
-//                    )
+                    RootNavigationGraph(
+                        navController = navController,
+                        startDestination = RANDOM_IMAGES_GRAPH,
+                        changeTheme = {
+                            mainViewModel.onTriggerEvent(MainEvent.Theme_Change(it))
+                        },
+                    )
 
                 }
 
