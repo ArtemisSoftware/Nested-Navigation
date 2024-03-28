@@ -35,6 +35,7 @@ fun NavGraphBuilder.randomImagesNavGraph(
         composable(
             route = RandomImageRoute.ImageFull.route,
         ) {
+            RandomImageFullScreen()
         }
     }
 }

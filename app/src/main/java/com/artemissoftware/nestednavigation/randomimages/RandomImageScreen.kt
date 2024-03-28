@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.artemissoftware.nestednavigation.composables.NNSqueleton_3
+import com.artemissoftware.nestednavigation.ui.theme.randomImage2
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,14 +26,14 @@ fun RandomImageScreen() {
             TopAppBar(
                 title = { Text("Random Images", color = Color.White) },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Red,
+                    containerColor = randomImage2,
                 ),
             )
         },
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             Image(
-                painter = painterResource(id = RandomImagesConstants.randomImages[1]),
+                painter = painterResource(id = RandomImagesConstants.randomImages[1].imageId),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

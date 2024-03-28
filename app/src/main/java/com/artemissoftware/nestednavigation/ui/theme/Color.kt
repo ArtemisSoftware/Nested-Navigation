@@ -24,3 +24,10 @@ val colorRed = Color(0xFF5A0000)
 val colorGreen = Color(0xFF003A00)
 val colorWhite = Color(0xFFFFFFFF)
 val colorBlack = Color(0xE9000000)
+
+
+val randomImage1 = Color(0xFFfff515)
+val randomImage2 = Color(0xFF932ffb)
+val randomImage3 = Color(0xFFfff486)
+val randomImage4 = Color(0xFFb577f4)
+val randomImage5 = Color(0xFFdfdda8)
