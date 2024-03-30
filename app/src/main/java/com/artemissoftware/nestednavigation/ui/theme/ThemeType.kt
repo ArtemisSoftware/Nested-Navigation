@@ -4,4 +4,5 @@ enum class ThemeType {
     DEFAULT,
     AUTHENTICATION,
     GALLERY,
+    RANDOM_IMAGE,
 }

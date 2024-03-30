@@ -2,12 +2,20 @@ package com.artemissoftware.nestednavigation.product
 
 import android.net.Uri
 import androidx.navigation.NamedNavArgument
+import com.artemissoftware.nestednavigation.randomimages.Image
+import com.artemissoftware.nestednavigation.randomimages.ShapeAdapter
+import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 
 abstract class BaseDestination(
     val route: String,
-    private val customArguments: List<NamedNavArgument> = emptyList(),
+    val customArguments: List<NamedNavArgument> = emptyList(),
+    val themeType: ThemeType = ThemeType.DEFAULT,
 ) {
+
+    val gson = GsonBuilder().registerTypeAdapter(Image::class.java, ShapeAdapter()).create()
+
 
     fun getRouteInFull(): String {
         return if (customArguments.isEmpty()) route else fullRoute
@@ -28,12 +36,15 @@ abstract class BaseDestination(
         return buildString {
             append(route)
             args.forEachIndexed { index, arg ->
-                val json = Uri.encode(Gson().toJson(arg))
+                val json = Uri.encode(getJsonEncoding(arg))
                 val symbol = if (index == 0) "?" else "&"
-                // append("$symbol${customArguments[index].key}=$json")
                 append("$symbol${customArguments[index].name}=$json")
             }
         }
+    }
+
+    open fun getJsonEncoding(arg: Any?): String? {
+        return gson.toJson(arg)
     }
 
 //    fun getRoutel(): String {

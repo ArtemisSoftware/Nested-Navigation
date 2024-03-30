@@ -30,7 +30,10 @@ import com.artemissoftware.nestednavigation.ui.theme.randomImage1
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RandomImagesListScreen(navigateToImage: () -> Unit, navigateToImageFull: () -> Unit) {
+fun RandomImagesListScreen(
+    navigateToImage: (RandomImage) -> Unit,
+    navigateToImageFull: (RandomImage) -> Unit,
+) {
     NNSqueleton_3(
         topBar = {
             TopAppBar(
@@ -53,9 +56,9 @@ fun RandomImagesListScreen(navigateToImage: () -> Unit, navigateToImageFull: () 
                         .padding(8.dp)
                         .clickable {
                             if (image.isFull) {
-                                navigateToImageFull()
+                                navigateToImageFull(image)
                             } else {
-                                navigateToImage()
+                                navigateToImage(image)
                             }
                         },
                 ) {

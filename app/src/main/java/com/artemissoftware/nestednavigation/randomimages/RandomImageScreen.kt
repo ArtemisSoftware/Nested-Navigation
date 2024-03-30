@@ -3,7 +3,11 @@ package com.artemissoftware.nestednavigation.randomimages
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -20,11 +24,23 @@ import com.artemissoftware.nestednavigation.ui.theme.randomImage2
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RandomImageScreen() {
+fun RandomImageScreen(
+    popBackStack: () -> Unit,
+) {
     NNSqueleton_3(
         topBar = {
             TopAppBar(
                 title = { Text("Random Images", color = Color.White) },
+                navigationIcon = {
+                    IconButton(
+                        onClick = popBackStack,
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null,
+                        )
+                    }
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = randomImage2,
                 ),

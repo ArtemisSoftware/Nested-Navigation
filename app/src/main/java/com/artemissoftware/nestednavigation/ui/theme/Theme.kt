@@ -53,6 +53,9 @@ fun NestedNavigationTheme(
         ThemeType.AUTHENTICATION -> {
             GreenColorScheme
         }
+        ThemeType.RANDOM_IMAGE -> {
+            GreenColorScheme
+        }
         ThemeType.DEFAULT -> {
             if (darkTheme) {
                 DarkColorScheme
