@@ -39,7 +39,8 @@ fun RandomImagesListScreen(
             TopAppBar(
                 title = { Text("Random Images", color = Color.Black) },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = randomImage1,
+                    //containerColor = randomImage1,
+                    containerColor = MaterialTheme.colorScheme.primary,
                 ),
             )
         },

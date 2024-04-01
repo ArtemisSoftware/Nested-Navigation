@@ -24,7 +24,7 @@ class RandomImageNavType : NavType<RandomImage>(isNullableAllowed = false) {
     }
 }
 
-class ImageNavType : NavType<Image?>(isNullableAllowed = true) {
+class ImageNavType : NavType<Image?>(isNullableAllowed = false) {
 
     val gson = GsonBuilder().registerTypeAdapter(Image::class.java, ShapeAdapter()).create()
 
@@ -38,12 +38,8 @@ class ImageNavType : NavType<Image?>(isNullableAllowed = true) {
     }
     override fun put(bundle: Bundle, key: String, value: Image?) {
         value?.let {
-            val type = value.javaClass.simpleName
-            val lolo = RandomImageRoute.Image.gson.toJsonTree(value).asJsonObject
-            lolo.addProperty("type", type)
-            bundle.putString(key, Gson().toJson(lolo))
+            bundle.putString(key, it.toString())
         }
-
     }
 }
 
@@ -52,8 +48,6 @@ class ShapeAdapter : JsonDeserializer<Image> {
     override fun deserialize(json: JsonElement, typeOfT: Type?, context: JsonDeserializationContext?): Image {
         val jsonObject = json.asJsonObject
         val shapeType = jsonObject.get("type").asString
-
-
 
         return when (shapeType) {
             "Regular" -> {

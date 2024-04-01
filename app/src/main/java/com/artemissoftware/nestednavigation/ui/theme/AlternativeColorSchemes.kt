@@ -28,3 +28,12 @@ internal val GreenColorScheme = lightColorScheme(
     onSecondary = colorWhite,
     onBackground = colorBlack,
 )
+
+internal val RandomImageColorScheme = lightColorScheme(
+    primary = randomImage1,
+    secondary = colorBlue1,
+    background = colorWhite,
+    onPrimary = colorWhite,
+    onSecondary = colorWhite,
+    onBackground = colorBlack,
+)

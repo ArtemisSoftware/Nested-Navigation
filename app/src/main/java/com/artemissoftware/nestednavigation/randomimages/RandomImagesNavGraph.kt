@@ -68,7 +68,7 @@ fun NavGraphBuilder.randomImagesNavGraph(
 sealed class RandomImageRoute(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
-    themeType: ThemeType = ThemeType.DEFAULT,
+    themeType: ThemeType = ThemeType.RANDOM_IMAGE,
 ) : BaseDestination(
     route = route,
     customArguments = arguments,
@@ -84,8 +84,6 @@ sealed class RandomImageRoute(
                 name = NavArguments.RANDOM_IMAGE,
             ) {
                 type = ImageNavType()
-                nullable = true
-                defaultValue = null
             },
 //            navArgument(
 //                name = NavArguments.RANDOM_IMAGE_FULL,
@@ -97,12 +95,7 @@ sealed class RandomImageRoute(
 
         override fun getJsonEncoding(arg: Any?): String? {
             arg?.let { argument ->
-                val type = argument.javaClass.simpleName
-                val lolo = gson.toJsonTree(argument).asJsonObject
-                lolo.addProperty("type", type)
-                val json = gson.toJson(lolo)
-
-                return json
+                return (argument as com.artemissoftware.nestednavigation.randomimages.Image).toString()
             }
             return null
         }

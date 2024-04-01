@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.artemissoftware.nestednavigation.home.HOME_GRAPH
 import com.artemissoftware.nestednavigation.navigation.RootNavigationGraph
 import com.artemissoftware.nestednavigation.product.productNavGraph
 import com.artemissoftware.nestednavigation.randomimages.RANDOM_IMAGES_GRAPH
@@ -98,7 +99,7 @@ class MainActivity : ComponentActivity() {
 
                     RootNavigationGraph(
                         navController = navController,
-                        startDestination = RANDOM_IMAGES_GRAPH,
+                        startDestination = HOME_GRAPH,
                         changeTheme = {
                             mainViewModel.onTriggerEvent(MainEvent.Theme_Change(it))
                         },

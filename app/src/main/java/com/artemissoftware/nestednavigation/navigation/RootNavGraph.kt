@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.artemissoftware.nestednavigation.authentication.authNavGraph
 import com.artemissoftware.nestednavigation.home.HOME_GRAPH
 import com.artemissoftware.nestednavigation.home.HomeScreen
+import com.artemissoftware.nestednavigation.home.HomeScreenAlternative
 import com.artemissoftware.nestednavigation.images.imagesNavGraph
 import com.artemissoftware.nestednavigation.randomimages.randomImagesNavGraph
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
@@ -27,12 +28,15 @@ fun RootNavigationGraph(
         authNavGraph(navController = navController)
 
         composable(route = HOME_GRAPH) {
-            HomeScreen(
+//            HomeScreen(
+//                changeTheme = changeTheme,
+//            )
+            HomeScreenAlternative(
                 changeTheme = changeTheme,
             )
         }
 
-        randomImagesNavGraph(navController = navController)
+        //randomImagesNavGraph(navController = navController)
 
         //imagesNavGraph(navController = navController)
     }

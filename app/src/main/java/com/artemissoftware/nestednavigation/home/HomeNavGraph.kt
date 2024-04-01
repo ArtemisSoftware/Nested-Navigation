@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import com.artemissoftware.nestednavigation.gallery.GALLERY_GRAPH
 import com.artemissoftware.nestednavigation.gallery.galleryNavGraph
 import com.artemissoftware.nestednavigation.images.imagesNavGraph
+import com.artemissoftware.nestednavigation.randomimages.randomImagesNavGraph
 import com.artemissoftware.nestednavigation.settings.settingsNavGraph
 
 const val HOME_GRAPH = "home_graph"
@@ -20,9 +21,17 @@ fun HomeNavGraph(
         route = HOME_GRAPH,
         startDestination = startGraph,
     ) {
+
+        randomImagesNavGraph(navController)
+  /*
+        //version 1
         galleryNavGraph(navController)
         imagesNavGraph(navController)
         settingsNavGraph(navController, {})
+*/
+
+
+
 
 //        composable(route = MainRoute.Home.route) {
 //            ScreenContent(

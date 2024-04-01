@@ -19,6 +19,7 @@ import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.ima
 import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.settings
 import com.artemissoftware.nestednavigation.navigation.TopBarDestinations
 import com.artemissoftware.nestednavigation.navigation.TopLevelDestination
+import com.artemissoftware.nestednavigation.randomimages.RandomImageRoute
 import com.artemissoftware.nestednavigation.settings.SettingsRoute
 import com.artemissoftware.nestednavigation.settings.navigateToSettingsNavGraph
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
@@ -90,6 +91,12 @@ class NNAppState(
 
         currentDestination?.let {
             val theme = when {
+
+                RandomImageRoute.Image.route == it.route -> RandomImageRoute.Image.themeType
+                RandomImageRoute.ImageFull.route == it.route -> RandomImageRoute.ImageFull.themeType
+                RandomImageRoute.ImagesList.route == it.route -> RandomImageRoute.ImagesList.themeType
+
+                GalleryRoute.Gallery.route == it.route -> GalleryRoute.Gallery.themeType
                 GalleryRoute.Gallery.route == it.route -> GalleryRoute.Gallery.themeType
                 GalleryRoute.Details.route == it.route -> GalleryRoute.Details.themeType
 //            Red.route == route -> Red.themeType

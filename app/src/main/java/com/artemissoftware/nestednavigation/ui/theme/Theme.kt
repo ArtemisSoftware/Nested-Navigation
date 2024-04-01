@@ -54,7 +54,7 @@ fun NestedNavigationTheme(
             GreenColorScheme
         }
         ThemeType.RANDOM_IMAGE -> {
-            GreenColorScheme
+            RandomImageColorScheme
         }
         ThemeType.DEFAULT -> {
             if (darkTheme) {

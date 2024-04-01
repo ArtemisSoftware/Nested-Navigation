@@ -5,10 +5,37 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import com.artemissoftware.nestednavigation.composables.NNNavigationBar
 import com.artemissoftware.nestednavigation.composables.NNScaffold
+import com.artemissoftware.nestednavigation.composables.NNSqueleton_3
 import com.artemissoftware.nestednavigation.gallery.GALLERY_GRAPH
 import com.artemissoftware.nestednavigation.gallery.navigateToGallerySearch
 import com.artemissoftware.nestednavigation.navigation.TopBarSelector
+import com.artemissoftware.nestednavigation.randomimages.RANDOM_IMAGES_GRAPH
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
+
+
+
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@Composable
+fun HomeScreenAlternative(
+    appState: NNAppState = rememberNRAppState(),
+    changeTheme: (ThemeType) -> Unit,
+) {
+    appState.updateTheme(
+        changeTheme = changeTheme,
+    )
+
+    NNSqueleton_3(
+        topBar = null,
+        content = {
+            HomeNavGraph(
+                navController = appState.navController,
+                startGraph = RANDOM_IMAGES_GRAPH,
+            )
+        }
+    )
+}
+
+
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
