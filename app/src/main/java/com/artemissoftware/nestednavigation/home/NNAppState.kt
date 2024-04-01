@@ -9,12 +9,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.artemissoftware.nestednavigation.food.GalleryRoute
-import com.artemissoftware.nestednavigation.food.navigateToGalleryGraph
+import com.artemissoftware.nestednavigation.food.FoodRoute
+import com.artemissoftware.nestednavigation.food.navigateToFoodGraph
 import com.artemissoftware.nestednavigation.images.ImageRoute
 import com.artemissoftware.nestednavigation.images.navigateToImagesGraph
 import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.destinations
-import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.home
+import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.food
 import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.images
 import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.random
 import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.settings
@@ -36,7 +36,7 @@ class NNAppState(
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() = when (currentDestination?.route) {
             random.route -> random
-            GalleryRoute.Gallery.route -> home
+            food.route -> food
             ImageRoute.Images.route -> images
             SettingsRoute.Settings.route -> settings
             else -> null
@@ -66,7 +66,7 @@ class NNAppState(
 
             when (topLevelDestination.route) {
                 random.route -> navController.navigateToRandomImagesGraph(topLevelNavOptions)
-                home.route -> navController.navigateToGalleryGraph(topLevelNavOptions)
+                food.route -> navController.navigateToFoodGraph(topLevelNavOptions)
                 images.route -> navController.navigateToImagesGraph(topLevelNavOptions)
                 settings.route -> navController.navigateToSettingsNavGraph(topLevelNavOptions)
 //                search.route -> navController.navigateToSearchGraph(topLevelNavOptions)
@@ -85,7 +85,7 @@ class NNAppState(
         }
     }
 
-    private var currentTheme = GalleryRoute.Gallery.themeType
+    private var currentTheme = FoodRoute.FoodList.themeType
 
     @Composable
     fun updateTheme(
@@ -99,9 +99,9 @@ class NNAppState(
                 RandomImageRoute.Image.route == it.route -> RandomImageRoute.Image.themeType
                 RandomImageRoute.ImagesList.route == it.route -> RandomImageRoute.ImagesList.themeType
 
-                GalleryRoute.Gallery.route == it.route -> GalleryRoute.Gallery.themeType
-                GalleryRoute.Gallery.route == it.route -> GalleryRoute.Gallery.themeType
-                GalleryRoute.Details.route == it.route -> GalleryRoute.Details.themeType
+                FoodRoute.FoodList.route == it.route -> FoodRoute.FoodList.themeType
+                FoodRoute.FoodList.route == it.route -> FoodRoute.FoodList.themeType
+                FoodRoute.Details.route == it.route -> FoodRoute.Details.themeType
 //            Red.route == route -> Red.themeType
 //            Blue.route == route -> Blue.themeType
 //            Green.route == route -> Green.themeType

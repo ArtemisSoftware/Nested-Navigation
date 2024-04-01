@@ -59,7 +59,6 @@ sealed class RandomImageRoute(
     data object ImagesList : RandomImageRoute(route = "random_images_list")
 
     data object Image : RandomImageRoute(
-        themeType = ThemeType.RANDOM_IMAGE,
         route = "random_image",
         arguments = listOf(
             navArgument(

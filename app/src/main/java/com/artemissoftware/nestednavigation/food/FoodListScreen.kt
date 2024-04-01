@@ -12,71 +12,63 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.artemissoftware.nestednavigation.food.MockData.galleries
-import com.artemissoftware.nestednavigation.composables.NNScaffold
-import com.artemissoftware.nestednavigation.models.Gallery
+import com.artemissoftware.nestednavigation.R
+import com.artemissoftware.nestednavigation.food.FoodConstants.foods
+import com.artemissoftware.nestednavigation.composables.NNSqueleton_3
 import com.artemissoftware.nestednavigation.ui.theme.NestedNavigationTheme
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GalleryScreen(
+fun FoodListScreen(
     navigateToSearch: () -> Unit,
     navigateToDetails: (Int) -> Unit,
 ) {
-    NNScaffold(
+    NNSqueleton_3(
         topBar = {
-//            TopAppBar(
-//                colors = TopAppBarDefaults.topAppBarColors(
-//                    containerColor = MaterialTheme.colorScheme.primary,
-//                ),
-//                title = {
-//                    Text("Gallery")
-//                },
-//                actions = {
-//                    IconButton(
-//                        onClick = navigateToSearch,
-//                    ) {
-//                        Icon(
-//                            imageVector = Icons.Default.Search,
-//                            modifier = Modifier.padding(end = 8.dp),
-//                            contentDescription = null,
-//                        )
-//                    }
-//                },
-//            )
+            TopAppBar(
+                title = { Text("Food Gallery", color = Color.White) },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                ),
+            )
         },
-    ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
-        ) {
-            items(galleries) { gallery ->
-                GalleryCard(
-                    gallery = gallery,
-                    onVideoClick = {
-                        navigateToDetails(gallery.id)
-                        // --navController.navigate("detailsPage")
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                )
+        content = {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize(),
+            ) {
+                items(foods) { gallery ->
+                    GalleryCard(
+                        food = gallery,
+                        onVideoClick = {
+                            navigateToDetails(gallery.id)
+                            // --navController.navigate("detailsPage")
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
             }
         }
-    }
+    )
 }
 
 @Composable
 private fun GalleryCard(
-    gallery: Gallery,
+    food: Food,
     onVideoClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -91,7 +83,7 @@ private fun GalleryCard(
                 .padding(8.dp),
         ) {
             Image(
-                painter = painterResource(id = gallery.imageId),
+                painter = painterResource(id = food.imageId),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -101,13 +93,13 @@ private fun GalleryCard(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = gallery.title,
+                text = food.title,
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(horizontal = 8.dp),
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = gallery.subtitle,
+                text = food.subtitle,
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(horizontal = 8.dp),
             )
@@ -118,9 +110,9 @@ private fun GalleryCard(
 
 @Preview
 @Composable
-private fun GalleryScreenPreview() {
+private fun FoodListScreenPreview() {
     NestedNavigationTheme(themeType = ThemeType.GALLERY) {
-        GalleryScreen(
+        FoodListScreen(
             navigateToSearch = {},
             navigateToDetails = {},
         )

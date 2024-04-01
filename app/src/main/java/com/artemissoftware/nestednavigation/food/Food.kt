@@ -1,6 +1,6 @@
-package com.artemissoftware.nestednavigation.models
+package com.artemissoftware.nestednavigation.food
 
-data class Gallery(
+data class Food(
     val id: Int,
     val title: String,
     val subtitle: String,

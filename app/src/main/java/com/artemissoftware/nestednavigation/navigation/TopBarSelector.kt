@@ -17,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.artemissoftware.nestednavigation.food.GalleryRoute
+import com.artemissoftware.nestednavigation.food.FoodRoute
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,7 +27,7 @@ fun TopBarSelector(
     popback: () -> Unit,
 ) {
     when {
-        GalleryRoute.Gallery.route == route || GalleryRoute.Details.route == route -> {
+        FoodRoute.FoodList.route == route || FoodRoute.Details.route == route -> {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
@@ -51,10 +51,10 @@ fun TopBarSelector(
 }
 
 private fun getText(route: String? = null) = when {
-    GalleryRoute.Gallery.route == route -> {
+    FoodRoute.FoodList.route == route -> {
         "Gallery"
     }
-    GalleryRoute.Details.route == route -> {
+    FoodRoute.Details.route == route -> {
         "Details"
     }
     else -> ""
@@ -66,10 +66,10 @@ private fun navigationIcon(
     popback: () -> Unit,
 ) {
     when {
-        GalleryRoute.Gallery.route == route -> {
+        FoodRoute.FoodList.route == route -> {
             Unit
         }
-        GalleryRoute.Details.route == route -> {
+        FoodRoute.Details.route == route -> {
             IconButton(
                 onClick = popback,
             ) {
@@ -89,7 +89,7 @@ private fun RowScope.actions(
     navigateToSearch: () -> Unit,
 ) {
     when {
-        GalleryRoute.Gallery.route == route -> {
+        FoodRoute.FoodList.route == route -> {
             IconButton(
                 onClick = navigateToSearch,
             ) {
@@ -100,7 +100,7 @@ private fun RowScope.actions(
                 )
             }
         }
-        GalleryRoute.Details.route == route -> {
+        FoodRoute.Details.route == route -> {
             IconButton(
                 onClick = navigateToSearch,
             ) {

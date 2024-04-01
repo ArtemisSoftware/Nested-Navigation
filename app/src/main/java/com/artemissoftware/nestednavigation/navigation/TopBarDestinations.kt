@@ -1,11 +1,11 @@
 package com.artemissoftware.nestednavigation.navigation
 
-import com.artemissoftware.nestednavigation.food.GalleryRoute
+import com.artemissoftware.nestednavigation.food.FoodRoute
 
 object TopBarDestinations {
 
     val screens = listOf(
-        GalleryRoute.Gallery,
-        GalleryRoute.Details
+        FoodRoute.FoodList,
+        FoodRoute.Details
     )
 }

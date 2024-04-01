@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import com.artemissoftware.nestednavigation.composables.NNNavigationBar
 import com.artemissoftware.nestednavigation.composables.NNScaffold
 import com.artemissoftware.nestednavigation.composables.NNSqueleton_3
-import com.artemissoftware.nestednavigation.food.GALLERY_GRAPH
+import com.artemissoftware.nestednavigation.food.FOOD_GRAPH
 import com.artemissoftware.nestednavigation.food.navigateToGallerySearch
 import com.artemissoftware.nestednavigation.navigation.TopBarSelector
 import com.artemissoftware.nestednavigation.randomimages.RANDOM_IMAGES_GRAPH
@@ -74,7 +74,7 @@ fun HomeScreen(
         content = {
             HomeNavGraph(
                 navController = appState.navController,
-                startGraph = GALLERY_GRAPH,
+                startGraph = FOOD_GRAPH,
             )
         },
         bottomBar = {

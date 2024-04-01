@@ -5,4 +5,5 @@ enum class ThemeType {
     AUTHENTICATION,
     GALLERY,
     RANDOM_IMAGE,
+    FOOD,
 }

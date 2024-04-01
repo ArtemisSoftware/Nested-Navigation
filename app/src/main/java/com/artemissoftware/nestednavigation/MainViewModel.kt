@@ -1,7 +1,7 @@
 package com.artemissoftware.nestednavigation
 
 import androidx.lifecycle.ViewModel
-import com.artemissoftware.nestednavigation.food.GalleryRoute
+import com.artemissoftware.nestednavigation.food.FoodRoute
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -41,7 +41,7 @@ class MainViewModel : ViewModel() {
 
     private fun getTheme(route: String? = null): ThemeType {
         return when {
-            GalleryRoute.Gallery.route == route -> GalleryRoute.Gallery.themeType
+            FoodRoute.FoodList.route == route -> FoodRoute.FoodList.themeType
 //            Red.route == route -> Red.themeType
 //            Blue.route == route -> Blue.themeType
 //            Green.route == route -> Green.themeType

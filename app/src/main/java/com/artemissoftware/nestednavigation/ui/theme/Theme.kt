@@ -47,15 +47,19 @@ fun NestedNavigationTheme(
 //    }
 
     val colorScheme = when (themeType) {
+        ThemeType.RANDOM_IMAGE -> {
+            RandomImageColorScheme
+        }
+        ThemeType.FOOD -> {
+            FoodColorScheme
+        }
         ThemeType.GALLERY -> {
             RedColorScheme
         }
         ThemeType.AUTHENTICATION -> {
             GreenColorScheme
         }
-        ThemeType.RANDOM_IMAGE -> {
-            RandomImageColorScheme
-        }
+
         ThemeType.DEFAULT -> {
             if (darkTheme) {
                 DarkColorScheme

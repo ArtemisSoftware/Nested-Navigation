@@ -37,3 +37,12 @@ internal val RandomImageColorScheme = lightColorScheme(
     onSecondary = colorWhite,
     onBackground = colorBlack,
 )
+
+internal val FoodColorScheme = lightColorScheme(
+    primary = colorBlue,
+    secondary = colorBlue1,
+    background = colorWhite,
+    onPrimary = colorWhite,
+    onSecondary = colorWhite,
+    onBackground = colorBlack,
+)

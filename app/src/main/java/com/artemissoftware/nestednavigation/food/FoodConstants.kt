@@ -1,102 +1,101 @@
 package com.artemissoftware.nestednavigation.food
 
 import com.artemissoftware.nestednavigation.R
-import com.artemissoftware.nestednavigation.models.Gallery
 
-object MockData {
+object FoodConstants {
 
-    val galleries = listOf(
-        Gallery(
+    val foods = listOf(
+        Food(
             1,
             "Fresh Vegges and Greens",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food1,
         ),
-        Gallery(
+        Food(
             2,
             "Best blue berries",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food2,
         ),
-        Gallery(
+        Food(
             3,
             "Cherries La Bloom",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food3,
         ),
-        Gallery(
+        Food(
             4,
             "Fruits everyday",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food4,
         ),
-        Gallery(
+        Food(
             5,
             "Sweet and sour",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food5,
         ),
-        Gallery(
+        Food(
             6,
             "Pancakes for everyone",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food6,
         ),
-        Gallery(
+        Food(
             7,
             "Cupcakes and sparkle",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food7,
         ),
-        Gallery(
+        Food(
             8,
             "Best Burgers shop",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food8,
         ),
-        Gallery(
+        Food(
             9,
             "Coffee of India",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food9,
         ),
-        Gallery(
+        Food(
             10,
             "Pizza boy town",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food10,
         ),
-        Gallery(
+        Food(
             11,
             "Burgers and Chips",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food11,
         ),
-        Gallery(
+        Food(
             12,
             "Breads and butter",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food12,
         ),
-        Gallery(
+        Food(
             13,
             "Cupcake factory",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food13,
         ),
-        Gallery(
+        Food(
             14,
             "Breakfast paradise",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food14,
         ),
-        Gallery(
+        Food(
             15,
             "Cake and Bake",
             "Very awesome list item has very awesome subtitle. This is bit long",
             R.drawable.food15,
         ),
-        Gallery(
+        Food(
             16,
             "Brunch and Stakes",
             "Very awesome list item has very awesome subtitle. This is bit long",
@@ -104,7 +103,7 @@ object MockData {
         ),
     )
 
-    val item = Gallery(
+    val item = Food(
         1,
         "Awesome List Item",
         "Very awesome list item has very awesome subtitle. This is bit long",

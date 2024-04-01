@@ -19,7 +19,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.artemissoftware.nestednavigation.composables.topbar.SimpleLightTopAppBar
-import com.artemissoftware.nestednavigation.food.GalleryRoute
+import com.artemissoftware.nestednavigation.food.FoodRoute
 import com.artemissoftware.nestednavigation.navigation.BottomBarItem
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
@@ -109,7 +109,7 @@ fun NavHostController.change(
     val currentDestination = navBackStackEntry?.destination
 val route = currentDestination?.route
     val kk =  when {
-        GalleryRoute.Gallery.route == route -> GalleryRoute.Gallery.themeType
+        FoodRoute.FoodList.route == route -> FoodRoute.FoodList.themeType
 //            Red.route == route -> Red.themeType
 //            Blue.route == route -> Blue.themeType
 //            Green.route == route -> Green.themeType
