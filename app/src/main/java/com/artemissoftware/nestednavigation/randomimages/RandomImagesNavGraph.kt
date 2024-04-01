@@ -15,8 +15,7 @@ const val RANDOM_IMAGES_GRAPH = "random_images_graph"
 
 fun NavController.navigateToRandomImagesGraph(navOptions: NavOptions) = navigate(RANDOM_IMAGES_GRAPH, navOptions)
 
-fun NavController.navigateToRandomImageFull(randomImage: RandomImage) = navigate(RandomImageRoute.ImageFull.withCustomArgs(randomImage))
-fun NavController.navigateToRandomImage(image: Image) = navigate(RandomImageRoute.Image.withCustomArgs(image))
+fun NavController.navigateToRandomImage(randomImage: RandomImage) = navigate(RandomImageRoute.Image.withCustomArgs(randomImage))
 
 fun NavGraphBuilder.randomImagesNavGraph(
     navController: NavController,
@@ -28,10 +27,7 @@ fun NavGraphBuilder.randomImagesNavGraph(
         composable(route = RandomImageRoute.ImagesList.route) {
             RandomImagesListScreen(
                 navigateToImage = {
-                    navController.navigateToRandomImage(Image.Regular(imageId = it.imageId))
-                },
-                navigateToImageFull = {
-                    navController.navigateToRandomImageFull(it)
+                    navController.navigateToRandomImage(it)
                 },
             )
         }
@@ -40,22 +36,8 @@ fun NavGraphBuilder.randomImagesNavGraph(
             arguments = RandomImageRoute.Image.arguments,
         ) {
             val randomImage = it.arguments?.let { image -> ImageNavType().parseValue(image.get(NavArguments.RANDOM_IMAGE) as String) }!!
-            val dd = it.arguments?.toString()
-            val ddd = dd + "dsdfs"
 
             RandomImageScreen(
-                popBackStack = {
-                    navController.popBackStack()
-                },
-            )
-        }
-        composable(
-            route = RandomImageRoute.ImageFull.getRouteInFull(),
-            arguments = RandomImageRoute.ImageFull.arguments,
-        ) {
-            val randomImage = it.arguments?.let { image -> RandomImageNavType().parseValue(image.get(NavArguments.RANDOM_IMAGE) as String) }!!
-
-            RandomImageFullScreen(
                 randomImage = randomImage,
                 popBackStack = {
                     navController.popBackStack()
@@ -85,31 +67,14 @@ sealed class RandomImageRoute(
             ) {
                 type = ImageNavType()
             },
-//            navArgument(
-//                name = NavArguments.RANDOM_IMAGE_FULL,
-//            ) {
-//                type = ImageFullNavType()
-//            },
         ),
     ) {
 
         override fun getJsonEncoding(arg: Any?): String? {
             arg?.let { argument ->
-                return (argument as com.artemissoftware.nestednavigation.randomimages.Image).toString()
+                return (argument as RandomImage).toNavString()
             }
             return null
         }
     }
-
-    data object ImageFull : RandomImageRoute(
-        themeType = ThemeType.RANDOM_IMAGE,
-        route = "random_image_full",
-        arguments = listOf(
-            navArgument(
-                name = NavArguments.RANDOM_IMAGE,
-            ) {
-                type = RandomImageNavType()
-            },
-        ),
-    )
 }

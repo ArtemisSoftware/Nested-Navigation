@@ -1,7 +1,7 @@
 package com.artemissoftware.nestednavigation
 
 import androidx.lifecycle.ViewModel
-import com.artemissoftware.nestednavigation.gallery.GalleryRoute
+import com.artemissoftware.nestednavigation.food.GalleryRoute
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

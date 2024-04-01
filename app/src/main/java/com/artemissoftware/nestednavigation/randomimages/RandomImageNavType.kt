@@ -24,37 +24,40 @@ class RandomImageNavType : NavType<RandomImage>(isNullableAllowed = false) {
     }
 }
 
-class ImageNavType : NavType<Image?>(isNullableAllowed = false) {
+class ImageNavType : NavType<RandomImage?>(isNullableAllowed = false) {
 
-    val gson = GsonBuilder().registerTypeAdapter(Image::class.java, ShapeAdapter()).create()
+    val gson = GsonBuilder().registerTypeAdapter(RandomImage::class.java, ShapeAdapter()).create()
 
-    override fun get(bundle: Bundle, key: String): Image? {
+    override fun get(bundle: Bundle, key: String): RandomImage? {
         return bundle.getString(key)?.let { parseValue(it) }
     }
 
-    override fun parseValue(value: String): Image? {
-        val deserializedCircle: Image = gson.fromJson(value, Image::class.java)
+    override fun parseValue(value: String): RandomImage {
+        val deserializedCircle: RandomImage = gson.fromJson(value, RandomImage::class.java)
         return deserializedCircle
     }
-    override fun put(bundle: Bundle, key: String, value: Image?) {
+    override fun put(bundle: Bundle, key: String, value: RandomImage?) {
         value?.let {
-            bundle.putString(key, it.toString())
+            bundle.putString(key, it.toNavString())
         }
     }
 }
 
 // Custom JsonDeserializer for deserializing Shape objects
-class ShapeAdapter : JsonDeserializer<Image> {
-    override fun deserialize(json: JsonElement, typeOfT: Type?, context: JsonDeserializationContext?): Image {
+class ShapeAdapter : JsonDeserializer<RandomImage> {
+    override fun deserialize(json: JsonElement, typeOfT: Type?, context: JsonDeserializationContext?): RandomImage {
         val jsonObject = json.asJsonObject
-        val shapeType = jsonObject.get("type").asString
+        val type = jsonObject.get("type").asString
+        jsonObject.remove("type")
 
-        return when (shapeType) {
-            "Regular" -> {
-                jsonObject.remove("type")
-                Gson().fromJson(jsonObject, Image.Regular::class.java)
+        return when (type) {
+            RandomImage.Regular::class.simpleName -> {
+                Gson().fromJson(jsonObject, RandomImage.Regular::class.java)
             }
-            else -> throw JsonParseException("Unknown shape type: $shapeType")
+            RandomImage.Full::class.simpleName -> {
+                Gson().fromJson(jsonObject, RandomImage.Full::class.java)
+            }
+            else -> throw JsonParseException("Unknown random image type: $type")
         }
     }
 }

@@ -3,11 +3,7 @@ package com.artemissoftware.nestednavigation.home
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.artemissoftware.nestednavigation.gallery.GALLERY_GRAPH
-import com.artemissoftware.nestednavigation.gallery.galleryNavGraph
-import com.artemissoftware.nestednavigation.images.imagesNavGraph
 import com.artemissoftware.nestednavigation.randomimages.randomImagesNavGraph
-import com.artemissoftware.nestednavigation.settings.settingsNavGraph
 
 const val HOME_GRAPH = "home_graph"
 

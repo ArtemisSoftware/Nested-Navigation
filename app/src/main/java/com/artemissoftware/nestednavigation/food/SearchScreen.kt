@@ -1,4 +1,4 @@
-package com.artemissoftware.nestednavigation.gallery
+package com.artemissoftware.nestednavigation.food
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

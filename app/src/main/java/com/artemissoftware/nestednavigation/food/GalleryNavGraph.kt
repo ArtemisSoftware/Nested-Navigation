@@ -1,4 +1,4 @@
-package com.artemissoftware.nestednavigation.gallery
+package com.artemissoftware.nestednavigation.food
 
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavController
@@ -62,50 +62,6 @@ fun NavGraphBuilder.galleryNavGraph(
             )
         }
     }
-
-//    NavHost(
-//        navController = navController,
-//        startDestination = MainRoute.Gallery.route,
-//    ) {
-//        composable(MainRoute.Gallery.route) {
-//            GalleryScreen(
-//                navigateToSearch = {
-//                    navController.navigate("search/Berries")
-//                },
-//                navigateToDetails = {
-//                    navController.navigate("details/$it")
-//                },
-//            )
-//        }
-//
-//        composable(
-//            route = MainRoute.Details.route,
-//            arguments = MainRoute.Details.arguments,
-//        ) { backStackEntry ->
-//            val galleryId = backStackEntry.arguments?.getInt("id")
-//            DetailsScreen(
-//                galleryId,
-//                popBackStack = {
-//                    navController.popBackStack()
-//                },
-//            )
-//        }
-//
-//        composable(
-//            route = MainRoute.Search.route,
-//            arguments = MainRoute.Search.arguments,
-//        ) { backStackEntry ->
-//
-//            val argument = backStackEntry.arguments?.getString("args")
-//
-//            SearchScreen(
-//                argument = argument,
-//                popBackStack = {
-//                    navController.popBackStack(MainRoute.Gallery.route, false)
-//                },
-//            )
-//        }
-//    }
 }
 
 sealed class GalleryRoute(

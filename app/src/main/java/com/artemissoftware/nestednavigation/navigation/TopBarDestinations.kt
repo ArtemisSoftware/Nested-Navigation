@@ -1,6 +1,6 @@
 package com.artemissoftware.nestednavigation.navigation
 
-import com.artemissoftware.nestednavigation.gallery.GalleryRoute
+import com.artemissoftware.nestednavigation.food.GalleryRoute
 
 object TopBarDestinations {
 

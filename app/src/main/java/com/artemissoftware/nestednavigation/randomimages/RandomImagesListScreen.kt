@@ -32,64 +32,62 @@ import com.artemissoftware.nestednavigation.ui.theme.randomImage1
 @Composable
 fun RandomImagesListScreen(
     navigateToImage: (RandomImage) -> Unit,
-    navigateToImageFull: (RandomImage) -> Unit,
 ) {
     NNSqueleton_3(
         topBar = {
             TopAppBar(
                 title = { Text("Random Images", color = Color.Black) },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    //containerColor = randomImage1,
                     containerColor = MaterialTheme.colorScheme.primary,
                 ),
             )
         },
-    ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
-        ) {
-            items(RandomImagesConstants.randomImages) { image ->
+        content = {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize(),
+            ) {
+                items(RandomImagesConstants.randomImages) { image ->
 
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                        .clickable {
-                            if (image.isFull) {
-                                navigateToImageFull(image)
-                            } else {
-                                navigateToImage(image)
-                            }
-                        },
-                ) {
-                    Box(
+                    Card(
                         modifier = Modifier
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .padding(8.dp)
+                            .clickable {
+                                navigateToImage(image)
+                            },
                     ) {
-                        Image(
-                            painter = painterResource(id = image.imageId),
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop,
+                        Box(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp)
-                                .height(200.dp)
-                                .clip(MaterialTheme.shapes.medium),
-                        )
-                        if (image.isFull) {
-                            Text(
-                                fontWeight = FontWeight.ExtraBold,
+                                .fillMaxWidth(),
+                        ) {
+                            Image(
+                                painter = painterResource(id = image.id),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
                                 modifier = Modifier
-                                    .align(Alignment.BottomEnd)
-                                    .background(randomImage1)
-                                    .padding(8.dp),
-                                text = "Full",
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
+                                    .height(200.dp)
+                                    .clip(MaterialTheme.shapes.medium),
                             )
+                            when(image){
+                                is RandomImage.Full -> {
+                                    Text(
+                                        fontWeight = FontWeight.ExtraBold,
+                                        modifier = Modifier
+                                            .align(Alignment.BottomEnd)
+                                            .background(randomImage1)
+                                            .padding(8.dp),
+                                        text = "Full",
+                                    )
+                                }
+                                else -> Unit
+                            }
                         }
                     }
                 }
             }
         }
-    }
+    )
 }

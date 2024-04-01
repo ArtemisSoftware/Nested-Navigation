@@ -1,5 +1,6 @@
-package com.artemissoftware.nestednavigation
+package com.artemissoftware.nestednavigation.food
 
+import com.artemissoftware.nestednavigation.R
 import com.artemissoftware.nestednavigation.models.Gallery
 
 object MockData {

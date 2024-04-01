@@ -5,7 +5,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.artemissoftware.nestednavigation.gallery.GALLERY_GRAPH
 
 const val IMAGES_GRAPH = "images_graph"
 

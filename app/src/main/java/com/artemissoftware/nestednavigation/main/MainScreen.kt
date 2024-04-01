@@ -19,8 +19,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.artemissoftware.nestednavigation.composables.topbar.SimpleLightTopAppBar
-import com.artemissoftware.nestednavigation.gallery.GalleryRoute
-import com.artemissoftware.nestednavigation.home.HomeNavGraph
+import com.artemissoftware.nestednavigation.food.GalleryRoute
 import com.artemissoftware.nestednavigation.navigation.BottomBarItem
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 

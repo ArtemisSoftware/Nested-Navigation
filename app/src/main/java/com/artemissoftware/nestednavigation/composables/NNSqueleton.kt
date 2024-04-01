@@ -42,6 +42,7 @@ import kotlin.math.roundToInt
 fun NNSqueleton_3(
     topBar: @Composable() (() -> Unit?)? = null,
     content: @Composable (PaddingValues) -> Unit,
+    bottomBar: @Composable() ((Modifier) -> Unit?)? = null,
 ) {
     val bottomBarHeight = 104.0.dp
     val bottomBarHeightPx = with(LocalDensity.current) { bottomBarHeight.roundToPx().toFloat() }
@@ -61,12 +62,17 @@ fun NNSqueleton_3(
         }
     }
 
+    val collapsedModifier = Modifier
+        .height(bottomBarHeight)
+        .offset { IntOffset(x = 0, y = -bottomBarOffsetHeightPx.floatValue.roundToInt()) }
+
     Scaffold(
         Modifier.nestedScroll(nestedScrollConnection),
         topBar = {
             topBar?.invoke()
         },
         bottomBar = {
+            bottomBar?.invoke(collapsedModifier)
 //            NNNavigationBar(
 //                modifier = Modifier
 //                    .height(bottomBarHeight)

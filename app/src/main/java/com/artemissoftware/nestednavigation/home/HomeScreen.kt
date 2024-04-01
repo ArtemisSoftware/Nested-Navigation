@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import com.artemissoftware.nestednavigation.composables.NNNavigationBar
 import com.artemissoftware.nestednavigation.composables.NNScaffold
 import com.artemissoftware.nestednavigation.composables.NNSqueleton_3
-import com.artemissoftware.nestednavigation.gallery.GALLERY_GRAPH
-import com.artemissoftware.nestednavigation.gallery.navigateToGallerySearch
+import com.artemissoftware.nestednavigation.food.GALLERY_GRAPH
+import com.artemissoftware.nestednavigation.food.navigateToGallerySearch
 import com.artemissoftware.nestednavigation.navigation.TopBarSelector
 import com.artemissoftware.nestednavigation.randomimages.RANDOM_IMAGES_GRAPH
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
@@ -30,6 +30,14 @@ fun HomeScreenAlternative(
             HomeNavGraph(
                 navController = appState.navController,
                 startGraph = RANDOM_IMAGES_GRAPH,
+            )
+        },
+        bottomBar = {
+            NNNavigationBar(
+                modifier = it,
+                destinations = appState.topLevelDestinations,
+                currentDestination = appState.currentTopLevelDestination,
+                onNavigateToDestination = appState::navigateToTopLevelDestination,
             )
         }
     )
