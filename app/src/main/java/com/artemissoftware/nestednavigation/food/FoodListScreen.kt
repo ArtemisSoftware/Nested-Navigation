@@ -51,11 +51,11 @@ fun FoodListScreen(
                 modifier = Modifier
                     .fillMaxSize(),
             ) {
-                items(foods) { gallery ->
+                items(foods) { food ->
                     GalleryCard(
-                        food = gallery,
+                        food = food,
                         onVideoClick = {
-                            navigateToDetails(gallery.id)
+                            navigateToDetails(food.id)
                             // --navController.navigate("detailsPage")
                         },
                         modifier = Modifier.fillMaxWidth(),

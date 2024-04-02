@@ -45,6 +45,7 @@ import kotlin.random.Random
 @Composable
 fun RandomImageScreen(
     popBackStack: () -> Unit,
+    onRandomFoodClick: () -> Unit,
     onLoveClick: (RandomImageRecipient) -> Unit,
     randomImage: RandomImage,
 ) {
@@ -59,13 +60,13 @@ fun RandomImageScreen(
 
             when(randomImage){
                 is RandomImage.Full -> FullScreen(popBackStack = popBackStack, randomImage = randomImage)
-                is RandomImage.Regular -> RegularScreen(randomImage = randomImage)
+                is RandomImage.Regular -> RegularScreen(randomImage = randomImage, onRandomFoodClick = onRandomFoodClick)
             }
         },
         bottomBar = {
             Box(modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)) {
+                .padding(bottom = 28.dp)) {
                 Button(
                     modifier = Modifier.align(Alignment.Center),
                     onClick = {
@@ -117,8 +118,20 @@ private fun FullScreen(
 @Composable
 private fun RegularScreen(
     randomImage: RandomImage,
+    onRandomFoodClick: () -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
+
+        Button(
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(24.dp),
+            onClick = onRandomFoodClick,
+            content = {
+                Text(text = "Random Food")
+            },
+        )
+
         Image(
             painter = painterResource(id = randomImage.id),
             contentDescription = null,
@@ -175,7 +188,8 @@ private fun RandomImageScreenFullPreview() {
     RandomImageScreen(
         randomImage = RandomImagesConstants.randomImages.filterIsInstance<RandomImage.Full>().get(0) ,
         popBackStack = {},
-        onLoveClick = {}
+        onLoveClick = {},
+        onRandomFoodClick = {},
     )
 }
 
@@ -185,6 +199,7 @@ private fun RandomImageScreenRegularPreview() {
     RandomImageScreen(
         randomImage = RandomImagesConstants.randomImages.filterIsInstance<RandomImage.Regular>().get(0) ,
         popBackStack = {},
-        onLoveClick = {}
+        onLoveClick = {},
+        onRandomFoodClick = {},
     )
 }

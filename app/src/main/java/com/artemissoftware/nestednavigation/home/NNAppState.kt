@@ -77,7 +77,7 @@ class NNAppState(
 
     @Composable
     fun showTopBar(): Boolean {
-        return currentDestination?.let {
+        val result = currentDestination?.let {
             val show = when {
 
                 RandomImageRoute.Image.route == it.route -> false
@@ -89,10 +89,12 @@ class NNAppState(
                 else -> false
             }
 
-            return show
+            show
         } ?: run {
             false
         }
+
+        return result
     }
 
     private var currentTheme = FoodRoute.FoodList.themeType

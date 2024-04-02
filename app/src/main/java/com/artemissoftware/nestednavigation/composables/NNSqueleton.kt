@@ -50,7 +50,8 @@ import kotlin.math.roundToInt
 @Composable
 fun NNSqueleton_3(
     modifier: Modifier = Modifier,
-    showTopBar: Boolean = true,
+    showTopBar: Boolean = false,
+    topBarFixed: @Composable() (() -> Unit?)? = null,
     topBar: @Composable() (() -> Unit?)? = null,
     content: @Composable (PaddingValues) -> Unit,
     bottomBar: @Composable() ((Modifier) -> Unit?)? = null,
@@ -102,16 +103,7 @@ fun NNSqueleton_3(
         },
         bottomBar = {
             bottomBar?.invoke(collapsedModifier)
-//            NNNavigationBar(
-//                modifier = Modifier
-//                    .height(bottomBarHeight)
-//                    .offset { IntOffset(x = 0, y = -bottomBarOffsetHeightPx.floatValue.roundToInt()) },
-//                destinations = BottomBarDestinations.destinations,
-//                onNavigateToDestination = {},
-//                currentDestination = BottomBarDestinations.destinations[0],
-//            )
         },
-
         content = { innerPadding ->
 
             //val topPadding = if (showTopBar == false) 0.dp else innerPadding.calculateTopPadding()
@@ -127,6 +119,10 @@ fun NNSqueleton_3(
                     //.padding(top = heightInDp.value)
                     //.padding(top = top_.value),
             ) {
+                //if(showTopBar){
+                    topBarFixed?.invoke()
+
+                //}
                 content(innerPadding)
             }
         },

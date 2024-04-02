@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.artemissoftware.nestednavigation.food.foodNavGraph
+import com.artemissoftware.nestednavigation.food.navigateToFoodDetail
 import com.artemissoftware.nestednavigation.randomimages.randomImagesNavGraph
 
 const val HOME_GRAPH = "home_graph"
@@ -19,7 +20,12 @@ fun HomeNavGraph(
         startDestination = startGraph,
     ) {
 
-        randomImagesNavGraph(navController)
+        randomImagesNavGraph(
+            navController = navController,
+            navigateToFoodDetail = {
+                navController.navigateToFoodDetail(it)
+            }
+        )
         foodNavGraph(navController)
   /*
         //version 1

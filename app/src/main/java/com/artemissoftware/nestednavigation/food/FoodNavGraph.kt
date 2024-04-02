@@ -18,6 +18,8 @@ fun NavController.navigateToFoodGraph(navOptions: NavOptions) = navigate(FOOD_GR
 
 fun NavController.navigateToGallerySearch() = navigate(FoodRoute.Search.route)
 
+fun NavController.navigateToFoodDetail(foodId: Int) = navigate(FoodRoute.Detail.withCustomArgs(foodId))
+
 fun NavGraphBuilder.foodNavGraph(
     navController: NavController,
 ) {
@@ -46,6 +48,9 @@ fun NavGraphBuilder.foodNavGraph(
             val foodId = backStackEntry.arguments?.getInt(NavArguments.FOOD_ID)
             FoodDetailsScreen(
                 foodId = foodId,
+                onNextFood = {
+                    navController.navigate(FoodRoute.Detail.withCustomArgs(it))
+                },
                 popBackStack = {
                     navController.popBackStack()
                 },

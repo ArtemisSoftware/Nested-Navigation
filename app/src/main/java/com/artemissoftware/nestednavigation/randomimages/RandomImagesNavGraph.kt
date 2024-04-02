@@ -7,6 +7,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import com.artemissoftware.nestednavigation.food.FoodConstants
 import com.artemissoftware.nestednavigation.product.BaseDestination
 import com.artemissoftware.nestednavigation.product.NavArguments
 import com.artemissoftware.nestednavigation.product.NavArguments.RANDOM_IMAGE_RECIPIENT
@@ -20,6 +21,7 @@ fun NavController.navigateToRandomImage(randomImage: RandomImage) = navigate(Ran
 
 fun NavGraphBuilder.randomImagesNavGraph(
     navController: NavController,
+    navigateToFoodDetail: (Int) -> Unit,
 ) {
     navigation(
         route = RANDOM_IMAGES_GRAPH,
@@ -52,6 +54,9 @@ fun NavGraphBuilder.randomImagesNavGraph(
                 },
                 popBackStack = {
                     navController.popBackStack()
+                },
+                onRandomFoodClick = {
+                    navigateToFoodDetail(FoodConstants.mockFood.id)
                 },
             )
         }

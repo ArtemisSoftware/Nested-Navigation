@@ -103,7 +103,7 @@ object FoodConstants {
         ),
     )
 
-    val item = Food(
+    val mockFood = Food(
         1,
         "Awesome List Item",
         "Very awesome list item has very awesome subtitle. This is bit long",

@@ -2,8 +2,12 @@ package com.artemissoftware.nestednavigation.home
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandIn
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -12,9 +16,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import com.artemissoftware.nestednavigation.composables.NNNavigationBar
 import com.artemissoftware.nestednavigation.composables.NNScaffold
@@ -42,38 +48,62 @@ fun HomeScreenAlternative(
         showTopBar = appState.showTopBar(),
         //topBar = GetTopBar(appState.showTopBar(), popback = { appState.navController.popBackStack() }),
 
-//        topBar = {
-//            MediumTopAppBar(
-//                colors = TopAppBarDefaults.topAppBarColors(
-//                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-//                    titleContentColor = MaterialTheme.colorScheme.primary,
-//                ),
-//                title = {
-//                    Text(
-//                        "Medium Top App Bar",
-//                        maxLines = 1,
-//                        overflow = TextOverflow.Ellipsis
-//                    )
-//                },
-//                navigationIcon = {
-//                    IconButton(onClick = { appState.navController.popBackStack() }) {
-//                        Icon(
-//                            imageVector = Icons.Filled.ArrowBack,
-//                            contentDescription = "Localized description"
+        topBarFixed = {
+            AnimatedVisibility(
+                visible = appState.showTopBar(),
+                enter = expandIn(),
+            ) {
+            //if(appState.showTopBar()) {
+                TopAppBar(
+                    title = { Text("Random Image", color = Color.White) },
+                    navigationIcon = {
+                        IconButton(
+                            onClick = { appState.navController.popBackStack() },
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = null,
+                            )
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                    ),
+                )
+            }
+//                MediumTopAppBar(
+//                    colors = TopAppBarDefaults.topAppBarColors(
+//                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+//                        titleContentColor = MaterialTheme.colorScheme.primary,
+//                    ),
+//                    title = {
+//                        Text(
+//                            "Medium Top App Bar",
+//                            maxLines = 1,
+//                            overflow = TextOverflow.Ellipsis
 //                        )
-//                    }
-//                },
-//                actions = {
-//                    IconButton(onClick = { /* do something */ }) {
-//                        Icon(
-//                            imageVector = Icons.Filled.Menu,
-//                            contentDescription = "Localized description"
-//                        )
-//                    }
-//                },
-//                scrollBehavior = scrollBehavior
-//            )
-//        },
+//                    },
+//                    navigationIcon = {
+//                        IconButton(onClick = { appState.navController.popBackStack() }) {
+//                            Icon(
+//                                imageVector = Icons.Filled.ArrowBack,
+//                                contentDescription = "Localized description"
+//                            )
+//                        }
+//                    },
+//                    actions = {
+//                        IconButton(onClick = { /* do something */ }) {
+//                            Icon(
+//                                imageVector = Icons.Filled.Menu,
+//                                contentDescription = "Localized description"
+//                            )
+//                        }
+//                    },
+//                    scrollBehavior = scrollBehavior
+//                )
+           // }
+
+        },
 
 //        topBar = {
 //
