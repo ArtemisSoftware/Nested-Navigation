@@ -18,7 +18,6 @@ import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.foo
 import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.images
 import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.random
 import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.settings
-import com.artemissoftware.nestednavigation.navigation.TopBarDestinations
 import com.artemissoftware.nestednavigation.navigation.TopLevelDestination
 import com.artemissoftware.nestednavigation.randomimages.RandomImageRoute
 import com.artemissoftware.nestednavigation.randomimages.navigateToRandomImagesGraph
@@ -79,9 +78,20 @@ class NNAppState(
     @Composable
     fun showTopBar(): Boolean {
         return currentDestination?.let {
-            return TopBarDestinations.screens.any { it.route == it.route }
+            val show = when {
+
+                RandomImageRoute.Image.route == it.route -> false
+                RandomImageRoute.ImagesList.route == it.route -> false
+
+                FoodRoute.FoodList.route == it.route -> false
+                FoodRoute.Detail.getRouteInFull() == it.route -> true
+
+                else -> false
+            }
+
+            return show
         } ?: run {
-            true
+            false
         }
     }
 
@@ -101,7 +111,7 @@ class NNAppState(
 
                 FoodRoute.FoodList.route == it.route -> FoodRoute.FoodList.themeType
                 FoodRoute.FoodList.route == it.route -> FoodRoute.FoodList.themeType
-                FoodRoute.Details.route == it.route -> FoodRoute.Details.themeType
+                FoodRoute.Detail.route == it.route -> FoodRoute.Detail.themeType
 //            Red.route == route -> Red.themeType
 //            Blue.route == route -> Blue.themeType
 //            Green.route == route -> Green.themeType

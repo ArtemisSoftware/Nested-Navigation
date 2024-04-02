@@ -1,5 +1,13 @@
 package com.artemissoftware.nestednavigation.composables
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateSizeAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,6 +26,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +49,8 @@ import kotlin.math.roundToInt
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NNSqueleton_3(
+    modifier: Modifier = Modifier,
+    showTopBar: Boolean = true,
     topBar: @Composable() (() -> Unit?)? = null,
     content: @Composable (PaddingValues) -> Unit,
     bottomBar: @Composable() ((Modifier) -> Unit?)? = null,
@@ -66,8 +77,26 @@ fun NNSqueleton_3(
         .height(bottomBarHeight)
         .offset { IntOffset(x = 0, y = -bottomBarOffsetHeightPx.floatValue.roundToInt()) }
 
+    val top_ = remember {
+        mutableStateOf(0.dp)
+    }
+
+    val show = remember {
+        mutableStateOf(false)
+    }
+
+    var heightInDp = animateDpAsState(
+        targetValue = if (showTopBar == false && topBar == null) 0.dp else top_.value ,
+        animationSpec = tween(
+            durationMillis = 1000,
+        )
+    )
+
+
     Scaffold(
-        Modifier.nestedScroll(nestedScrollConnection),
+        modifier = Modifier
+            .then(modifier)
+            .nestedScroll(nestedScrollConnection),
         topBar = {
             topBar?.invoke()
         },
@@ -85,12 +114,18 @@ fun NNSqueleton_3(
 
         content = { innerPadding ->
 
+            //val topPadding = if (showTopBar == false) 0.dp else innerPadding.calculateTopPadding()
             val topPadding = if (topBar == null) 0.dp else innerPadding.calculateTopPadding()
+            show.value = showTopBar
+            //val topPadding = if (showTopBar == false && topBar == null) 0.dp else innerPadding.calculateTopPadding()
+            top_.value = if (showTopBar == false && topBar == null) 0.dp else innerPadding.calculateTopPadding()
 
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = topPadding),
+                    .padding(top = topPadding)
+                    //.padding(top = heightInDp.value)
+                    //.padding(top = top_.value),
             ) {
                 content(innerPadding)
             }
@@ -135,7 +170,12 @@ fun NNSqueleton() {
             NNNavigationBar(
                 modifier = Modifier
                     .height(bottomBarHeight)
-                    .offset { IntOffset(x = 0, y = -bottomBarOffsetHeightPx.floatValue.roundToInt()) },
+                    .offset {
+                        IntOffset(
+                            x = 0,
+                            y = -bottomBarOffsetHeightPx.floatValue.roundToInt()
+                        )
+                    },
                 destinations = BottomBarDestinations.destinations,
                 onNavigateToDestination = {},
                 currentDestination = BottomBarDestinations.destinations[0],

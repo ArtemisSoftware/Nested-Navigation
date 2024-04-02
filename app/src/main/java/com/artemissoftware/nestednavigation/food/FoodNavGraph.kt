@@ -91,11 +91,6 @@ sealed class FoodRoute(
         ),
     )
 
-    data object Details : FoodRoute(
-        route = "details/{id}",
-        arguments = listOf(navArgument("id") { type = NavType.IntType }),
-        themeType = ThemeType.AUTHENTICATION,
-    )
     data object Search : FoodRoute(
         route = "search/{args}",
         arguments = listOf(navArgument("args") { type = NavType.StringType }),

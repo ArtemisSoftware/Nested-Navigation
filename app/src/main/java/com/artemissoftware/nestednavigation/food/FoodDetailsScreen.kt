@@ -32,6 +32,7 @@ fun FoodDetailsScreen(
     }
 
     NNSqueleton_3 (
+        showTopBar = false,
         content = {
             Column(
                 modifier = Modifier

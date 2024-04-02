@@ -27,7 +27,7 @@ fun TopBarSelector(
     popback: () -> Unit,
 ) {
     when {
-        FoodRoute.FoodList.route == route || FoodRoute.Details.route == route -> {
+        FoodRoute.FoodList.route == route || FoodRoute.Detail.route == route -> {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
@@ -54,7 +54,7 @@ private fun getText(route: String? = null) = when {
     FoodRoute.FoodList.route == route -> {
         "Gallery"
     }
-    FoodRoute.Details.route == route -> {
+    FoodRoute.Detail.route == route -> {
         "Details"
     }
     else -> ""
@@ -69,7 +69,7 @@ private fun navigationIcon(
         FoodRoute.FoodList.route == route -> {
             Unit
         }
-        FoodRoute.Details.route == route -> {
+        FoodRoute.Detail.route == route -> {
             IconButton(
                 onClick = popback,
             ) {
@@ -100,7 +100,7 @@ private fun RowScope.actions(
                 )
             }
         }
-        FoodRoute.Details.route == route -> {
+        FoodRoute.Detail.route == route -> {
             IconButton(
                 onClick = navigateToSearch,
             ) {

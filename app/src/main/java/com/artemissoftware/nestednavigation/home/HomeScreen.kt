@@ -1,8 +1,21 @@
 package com.artemissoftware.nestednavigation.home
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandIn
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MediumTopAppBar
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.style.TextOverflow
 import com.artemissoftware.nestednavigation.composables.NNNavigationBar
 import com.artemissoftware.nestednavigation.composables.NNScaffold
 import com.artemissoftware.nestednavigation.composables.NNSqueleton_3
@@ -20,12 +33,91 @@ fun HomeScreenAlternative(
     appState: NNAppState = rememberNRAppState(),
     changeTheme: (ThemeType) -> Unit,
 ) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     appState.updateTheme(
         changeTheme = changeTheme,
     )
 
     NNSqueleton_3(
-        topBar = null,
+        showTopBar = appState.showTopBar(),
+        //topBar = GetTopBar(appState.showTopBar(), popback = { appState.navController.popBackStack() }),
+
+//        topBar = {
+//            MediumTopAppBar(
+//                colors = TopAppBarDefaults.topAppBarColors(
+//                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+//                    titleContentColor = MaterialTheme.colorScheme.primary,
+//                ),
+//                title = {
+//                    Text(
+//                        "Medium Top App Bar",
+//                        maxLines = 1,
+//                        overflow = TextOverflow.Ellipsis
+//                    )
+//                },
+//                navigationIcon = {
+//                    IconButton(onClick = { appState.navController.popBackStack() }) {
+//                        Icon(
+//                            imageVector = Icons.Filled.ArrowBack,
+//                            contentDescription = "Localized description"
+//                        )
+//                    }
+//                },
+//                actions = {
+//                    IconButton(onClick = { /* do something */ }) {
+//                        Icon(
+//                            imageVector = Icons.Filled.Menu,
+//                            contentDescription = "Localized description"
+//                        )
+//                    }
+//                },
+//                scrollBehavior = scrollBehavior
+//            )
+//        },
+
+//        topBar = {
+//
+//            if(appState.showTopBar() == false){
+//                null
+//            }
+//            else {
+//                /*
+//            AnimatedVisibility(
+//                visible = false,//appState.showTopBar(),
+//            ) {*/
+//                MediumTopAppBar(
+//                    colors = TopAppBarDefaults.topAppBarColors(
+//                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+//                        titleContentColor = MaterialTheme.colorScheme.primary,
+//                    ),
+//                    title = {
+//                        Text(
+//                            "Medium Top App Bar",
+//                            maxLines = 1,
+//                            overflow = TextOverflow.Ellipsis
+//                        )
+//                    },
+//                    navigationIcon = {
+//                        IconButton(onClick = { appState.navController.popBackStack() }) {
+//                            Icon(
+//                                imageVector = Icons.Filled.ArrowBack,
+//                                contentDescription = "Localized description"
+//                            )
+//                        }
+//                    },
+//                    actions = {
+//                        IconButton(onClick = { /* do something */ }) {
+//                            Icon(
+//                                imageVector = Icons.Filled.Menu,
+//                                contentDescription = "Localized description"
+//                            )
+//                        }
+//                    },
+//                    scrollBehavior = scrollBehavior
+//                )
+//            }
+//            //}
+//        },
         content = {
             HomeNavGraph(
                 navController = appState.navController,
@@ -43,6 +135,106 @@ fun HomeScreenAlternative(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@Composable
+private fun GetTopBar(showTopBar: Boolean, popback: () -> Unit): @Composable() (() -> Unit?)? {
+
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+
+    var result: @Composable() (() -> Unit?)? = null
+
+    if(showTopBar) {
+        result = {
+            AnimatedVisibility(
+                visible = showTopBar,//appState.showTopBar(),
+                enter = expandIn()
+            ) {
+            MediumTopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.primary,
+                ),
+                title = {
+                    Text(
+                        "Medium Top App Bar",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = popback) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Localized description"
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { /* do something */ }) {
+                        Icon(
+                            imageVector = Icons.Filled.Menu,
+                            contentDescription = "Localized description"
+                        )
+                    }
+                },
+                scrollBehavior = scrollBehavior
+            )
+            }
+        }
+    } else {
+        result =  null
+    }
+
+    return result
+}
+
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@Composable
+private fun GetTopBar_(showTopBar: Boolean, popback: () -> Unit): @Composable() (() -> Unit?)? {
+
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+
+    var result: @Composable() (() -> Unit?)? = null
+
+    if(showTopBar) {
+        result = {
+            MediumTopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.primary,
+                ),
+                title = {
+                    Text(
+                        "Medium Top App Bar",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = popback) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Localized description"
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { /* do something */ }) {
+                        Icon(
+                            imageVector = Icons.Filled.Menu,
+                            contentDescription = "Localized description"
+                        )
+                    }
+                },
+                scrollBehavior = scrollBehavior
+            )
+        }
+    } else {
+        result =  null
+    }
+
+    return result
+}
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)

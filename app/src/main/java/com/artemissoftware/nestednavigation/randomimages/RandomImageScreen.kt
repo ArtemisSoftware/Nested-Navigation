@@ -1,20 +1,32 @@
 package com.artemissoftware.nestednavigation.randomimages
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandIn
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,21 +34,54 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.artemissoftware.nestednavigation.composables.NNSqueleton_3
+import com.artemissoftware.nestednavigation.food.FoodDetailsScreen
 import com.artemissoftware.nestednavigation.ui.theme.randomImage2
+import kotlin.random.Random
 
 @Composable
 fun RandomImageScreen(
     popBackStack: () -> Unit,
+    onLoveClick: (RandomImageRecipient) -> Unit,
     randomImage: RandomImage,
 ) {
 
-    when(randomImage){
-        is RandomImage.Full -> FullScreen(popBackStack = popBackStack, randomImage = randomImage)
-        is RandomImage.Regular -> RegularScreen(popBackStack = popBackStack, randomImage = randomImage)
+    val randomValue = remember {
+        mutableIntStateOf(Random.nextInt(10))
     }
+
+    NNSqueleton_3(
+        topBar = GetTopBar(randomImage, popBackStack = popBackStack),
+        content = {
+
+            when(randomImage){
+                is RandomImage.Full -> FullScreen(popBackStack = popBackStack, randomImage = randomImage)
+                is RandomImage.Regular -> RegularScreen(randomImage = randomImage)
+            }
+        },
+        bottomBar = {
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)) {
+                Button(
+                    modifier = Modifier.align(Alignment.Center),
+                    onClick = {
+                        onLoveClick(RandomImageRecipient(imageId = randomImage.id, randomValue.intValue))
+                    },
+                    content = {
+                        Text(text = "Give ${randomValue.value} points")
+                    },
+                )
+            }
+
+        }
+    )
 }
+
+
 
 @Composable
 private fun FullScreen(
@@ -44,6 +89,7 @@ private fun FullScreen(
     popBackStack: () -> Unit,
 ) {
     val image: Painter = painterResource(id = randomImage.id)
+
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = image,
@@ -68,16 +114,37 @@ private fun FullScreen(
     }
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun RegularScreen(
-    popBackStack: () -> Unit,
     randomImage: RandomImage,
 ) {
-    NNSqueleton_3(
+    Box(modifier = Modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(id = randomImage.id),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .align(Alignment.Center)
+                .clip(MaterialTheme.shapes.medium),
+        )
+    }
+}
 
-        topBar = {
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@Composable
+private fun GetTopBar(randomImage: RandomImage, popBackStack: () -> Unit): @Composable() (() -> Unit?)? {
+
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+
+    var result: @Composable() (() -> Unit?)? = null
+
+    val showTopBar = when(randomImage){
+        is RandomImage.Full -> false
+        is RandomImage.Regular -> true
+    }
+
+    if(showTopBar) {
+        result = {
             TopAppBar(
                 title = { Text("Random Image", color = Color.White) },
                 navigationIcon = {
@@ -94,18 +161,30 @@ private fun RegularScreen(
                     containerColor = MaterialTheme.colorScheme.primary,
                 ),
             )
-        },
-        content = {
-            Box(modifier = Modifier.fillMaxSize()) {
-                Image(
-                    painter = painterResource(id = randomImage.id),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .clip(MaterialTheme.shapes.medium),
-                )
-            }
         }
+    } else {
+        result =  null
+    }
+
+    return result
+}
+
+@Preview
+@Composable
+private fun RandomImageScreenFullPreview() {
+    RandomImageScreen(
+        randomImage = RandomImagesConstants.randomImages.filterIsInstance<RandomImage.Full>().get(0) ,
+        popBackStack = {},
+        onLoveClick = {}
+    )
+}
+
+@Preview
+@Composable
+private fun RandomImageScreenRegularPreview() {
+    RandomImageScreen(
+        randomImage = RandomImagesConstants.randomImages.filterIsInstance<RandomImage.Regular>().get(0) ,
+        popBackStack = {},
+        onLoveClick = {}
     )
 }

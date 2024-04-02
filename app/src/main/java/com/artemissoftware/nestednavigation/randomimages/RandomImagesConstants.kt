@@ -26,4 +26,13 @@ object RandomImagesConstants {
             else -> throw NullPointerException()
         }
     }
+
+    fun updateList(randomImageRecipient: RandomImageRecipient): List<RandomImage> {
+        val result = randomImages.map {
+            if(it.id == randomImageRecipient.imageId){
+                it.copyClicks(randomImageRecipient.points)
+            } else it
+        }
+        return result
+    }
 }
