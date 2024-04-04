@@ -45,110 +45,44 @@ fun HomeScreenAlternative(
     )
 
     NNSqueleton_3(
-        showTopBar = appState.showTopBar(),
-        //topBar = GetTopBar(appState.showTopBar(), popback = { appState.navController.popBackStack() }),
-
-        topBarFixed = {
+        content = {
             AnimatedVisibility(
                 visible = appState.showTopBar(),
                 enter = expandIn(),
             ) {
-            //if(appState.showTopBar()) {
-                TopAppBar(
-                    title = { Text("Random Image", color = Color.White) },
+                MediumTopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        navigationIconContentColor = Color.White,
+                        titleContentColor = Color.White,
+                        actionIconContentColor = Color.White,
+                    ),
+                    title = {
+                        Text(
+                            "Medium Top App Bar",
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    },
                     navigationIcon = {
-                        IconButton(
-                            onClick = { appState.navController.popBackStack() },
-                        ) {
+                        IconButton(onClick = { appState.navController.popBackStack() }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = null,
+                                contentDescription = "Localized description"
                             )
                         }
                     },
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                    ),
+                    actions = {
+                        IconButton(onClick = { /* do something */ }) {
+                            Icon(
+                                imageVector = Icons.Filled.Menu,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    },
+                    scrollBehavior = scrollBehavior
                 )
             }
-//                MediumTopAppBar(
-//                    colors = TopAppBarDefaults.topAppBarColors(
-//                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-//                        titleContentColor = MaterialTheme.colorScheme.primary,
-//                    ),
-//                    title = {
-//                        Text(
-//                            "Medium Top App Bar",
-//                            maxLines = 1,
-//                            overflow = TextOverflow.Ellipsis
-//                        )
-//                    },
-//                    navigationIcon = {
-//                        IconButton(onClick = { appState.navController.popBackStack() }) {
-//                            Icon(
-//                                imageVector = Icons.Filled.ArrowBack,
-//                                contentDescription = "Localized description"
-//                            )
-//                        }
-//                    },
-//                    actions = {
-//                        IconButton(onClick = { /* do something */ }) {
-//                            Icon(
-//                                imageVector = Icons.Filled.Menu,
-//                                contentDescription = "Localized description"
-//                            )
-//                        }
-//                    },
-//                    scrollBehavior = scrollBehavior
-//                )
-           // }
-
-        },
-
-//        topBar = {
-//
-//            if(appState.showTopBar() == false){
-//                null
-//            }
-//            else {
-//                /*
-//            AnimatedVisibility(
-//                visible = false,//appState.showTopBar(),
-//            ) {*/
-//                MediumTopAppBar(
-//                    colors = TopAppBarDefaults.topAppBarColors(
-//                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-//                        titleContentColor = MaterialTheme.colorScheme.primary,
-//                    ),
-//                    title = {
-//                        Text(
-//                            "Medium Top App Bar",
-//                            maxLines = 1,
-//                            overflow = TextOverflow.Ellipsis
-//                        )
-//                    },
-//                    navigationIcon = {
-//                        IconButton(onClick = { appState.navController.popBackStack() }) {
-//                            Icon(
-//                                imageVector = Icons.Filled.ArrowBack,
-//                                contentDescription = "Localized description"
-//                            )
-//                        }
-//                    },
-//                    actions = {
-//                        IconButton(onClick = { /* do something */ }) {
-//                            Icon(
-//                                imageVector = Icons.Filled.Menu,
-//                                contentDescription = "Localized description"
-//                            )
-//                        }
-//                    },
-//                    scrollBehavior = scrollBehavior
-//                )
-//            }
-//            //}
-//        },
-        content = {
             HomeNavGraph(
                 navController = appState.navController,
                 startGraph = RANDOM_IMAGES_GRAPH,
@@ -164,108 +98,6 @@ fun HomeScreenAlternative(
         }
     )
 }
-
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
-@Composable
-private fun GetTopBar(showTopBar: Boolean, popback: () -> Unit): @Composable() (() -> Unit?)? {
-
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
-
-    var result: @Composable() (() -> Unit?)? = null
-
-    if(showTopBar) {
-        result = {
-            AnimatedVisibility(
-                visible = showTopBar,//appState.showTopBar(),
-                enter = expandIn()
-            ) {
-            MediumTopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
-                title = {
-                    Text(
-                        "Medium Top App Bar",
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = popback) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = "Localized description"
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(onClick = { /* do something */ }) {
-                        Icon(
-                            imageVector = Icons.Filled.Menu,
-                            contentDescription = "Localized description"
-                        )
-                    }
-                },
-                scrollBehavior = scrollBehavior
-            )
-            }
-        }
-    } else {
-        result =  null
-    }
-
-    return result
-}
-
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
-@Composable
-private fun GetTopBar_(showTopBar: Boolean, popback: () -> Unit): @Composable() (() -> Unit?)? {
-
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
-
-    var result: @Composable() (() -> Unit?)? = null
-
-    if(showTopBar) {
-        result = {
-            MediumTopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
-                title = {
-                    Text(
-                        "Medium Top App Bar",
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = popback) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = "Localized description"
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(onClick = { /* do something */ }) {
-                        Icon(
-                            imageVector = Icons.Filled.Menu,
-                            contentDescription = "Localized description"
-                        )
-                    }
-                },
-                scrollBehavior = scrollBehavior
-            )
-        }
-    } else {
-        result =  null
-    }
-
-    return result
-}
-
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable

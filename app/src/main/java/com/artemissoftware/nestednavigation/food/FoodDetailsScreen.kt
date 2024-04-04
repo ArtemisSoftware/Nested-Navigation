@@ -13,7 +13,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -22,20 +21,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.artemissoftware.nestednavigation.composables.NNSqueleton_3
+import com.artemissoftware.nestednavigation.food.FoodConstants.getFood
+import com.artemissoftware.nestednavigation.food.FoodConstants.randomFood
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FoodDetailsScreen(
     foodId: Int?,
-    popBackStack: () -> Unit,
     onNextFood: (Int) -> Unit,
 ) {
-    val gallery = remember {
-        FoodConstants.foods.find { it.id == foodId } ?: FoodConstants.foods[0]
+    val food = remember {
+        getFood(foodId)
     }
 
     NNSqueleton_3 (
-        showTopBar = false,
         content = {
             Column(
                 modifier = Modifier
@@ -43,7 +41,7 @@ fun FoodDetailsScreen(
                     .padding(all = 16.dp),
             ) {
                 Image(
-                    painter = painterResource(id = gallery.imageId),
+                    painter = painterResource(id = food.imageId),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -53,12 +51,12 @@ fun FoodDetailsScreen(
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = gallery.title,
+                    text = food.title,
                     style = MaterialTheme.typography.headlineSmall,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = gallery.subtitle,
+                    text = food.subtitle,
                     textAlign = TextAlign.Justify,
                     style = MaterialTheme.typography.bodyLarge,
                 )
@@ -67,7 +65,7 @@ fun FoodDetailsScreen(
                     modifier = Modifier
                         .padding(24.dp),
                     onClick = {
-                        onNextFood(FoodConstants.foods[3].id)
+                        onNextFood(randomFood().id)
                     },
                     content = {
                         Text(text = "Random Food")
@@ -81,5 +79,8 @@ fun FoodDetailsScreen(
 @Preview
 @Composable
 private fun FoodDetailsScreenPreview() {
-    FoodDetailsScreen(foodId = 1, popBackStack = {}, onNextFood = {})
+    FoodDetailsScreen(
+        foodId = 1,
+        onNextFood = {}
+    )
 }

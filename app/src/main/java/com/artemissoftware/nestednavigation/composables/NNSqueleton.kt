@@ -50,8 +50,6 @@ import kotlin.math.roundToInt
 @Composable
 fun NNSqueleton_3(
     modifier: Modifier = Modifier,
-    showTopBar: Boolean = false,
-    topBarFixed: @Composable() (() -> Unit?)? = null,
     topBar: @Composable() (() -> Unit?)? = null,
     content: @Composable (PaddingValues) -> Unit,
     bottomBar: @Composable() ((Modifier) -> Unit?)? = null,
@@ -78,22 +76,6 @@ fun NNSqueleton_3(
         .height(bottomBarHeight)
         .offset { IntOffset(x = 0, y = -bottomBarOffsetHeightPx.floatValue.roundToInt()) }
 
-    val top_ = remember {
-        mutableStateOf(0.dp)
-    }
-
-    val show = remember {
-        mutableStateOf(false)
-    }
-
-    var heightInDp = animateDpAsState(
-        targetValue = if (showTopBar == false && topBar == null) 0.dp else top_.value ,
-        animationSpec = tween(
-            durationMillis = 1000,
-        )
-    )
-
-
     Scaffold(
         modifier = Modifier
             .then(modifier)
@@ -106,23 +88,13 @@ fun NNSqueleton_3(
         },
         content = { innerPadding ->
 
-            //val topPadding = if (showTopBar == false) 0.dp else innerPadding.calculateTopPadding()
             val topPadding = if (topBar == null) 0.dp else innerPadding.calculateTopPadding()
-            show.value = showTopBar
-            //val topPadding = if (showTopBar == false && topBar == null) 0.dp else innerPadding.calculateTopPadding()
-            top_.value = if (showTopBar == false && topBar == null) 0.dp else innerPadding.calculateTopPadding()
 
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = topPadding)
-                    //.padding(top = heightInDp.value)
-                    //.padding(top = top_.value),
             ) {
-                //if(showTopBar){
-                    topBarFixed?.invoke()
-
-                //}
                 content(innerPadding)
             }
         },

@@ -103,6 +103,10 @@ object FoodConstants {
         ),
     )
 
+    fun getFood(foodId: Int? = null) = foods.find { it.id == foodId } ?: foods[0]
+
+    fun randomFood() = foods.random()
+
     val mockFood = Food(
         1,
         "Awesome List Item",

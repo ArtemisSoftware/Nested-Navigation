@@ -51,9 +51,6 @@ fun NavGraphBuilder.foodNavGraph(
                 onNextFood = {
                     navController.navigate(FoodRoute.Detail.withCustomArgs(it))
                 },
-                popBackStack = {
-                    navController.popBackStack()
-                },
             )
         }
 
