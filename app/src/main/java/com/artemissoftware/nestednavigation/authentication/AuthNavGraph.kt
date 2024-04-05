@@ -1,55 +1,68 @@
 package com.artemissoftware.nestednavigation.authentication
 
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import com.artemissoftware.nestednavigation.food.FOOD_GRAPH
+import com.artemissoftware.nestednavigation.food.FoodRoute
 import com.artemissoftware.nestednavigation.home.HOME_GRAPH
+import com.artemissoftware.nestednavigation.product.BaseDestination
+import com.artemissoftware.nestednavigation.product.NavArguments
+import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
 const val AUTHENTICATION_GRAPH = "auth_graph"
+
+fun NavController.navigateToAuthGraph(navOptions: NavOptions) = navigate(AUTHENTICATION_GRAPH, navOptions)
+
+fun NavController.navigateToLogin() = navigate(AuthRoute.SignUp.getRouteInFull())
 
 fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
     navigation(
         route = AUTHENTICATION_GRAPH,
-        startDestination = AuthScreen.Splash.route,
+        startDestination = AuthRoute.Login.route,
     ) {
-        composable(route = AuthScreen.Splash.route) {
-            SplashScreen(
-                navigateToLogin = {
-                    navController.navigate(AuthScreen.Login.route) {
-                        popUpTo(AuthScreen.Splash.route) { inclusive = true }
-                    }
-                },
-            )
-        }
+//        composable(route = AuthScreen.Splash.route) {
+//            SplashScreen(
+//                navigateToLogin = {
+//                    navController.navigate(AuthScreen.Login.route) {
+//                        popUpTo(AuthScreen.Splash.route) { inclusive = true }
+//                    }
+//                },
+//            )
+//        }
 
-        composable(route = AuthScreen.Login.route) {
+        composable(route = AuthRoute.Login.route) {
             LoginScreen(
                 navigateToLogin = {
                     navController.navigate(HOME_GRAPH) {
-                        popUpTo(AuthScreen.Login.route) { inclusive = true }
+                        popUpTo(AuthRoute.Login.route) { inclusive = true }
                     }
                 },
-                navigateToSignUp = { navController.navigate(AuthScreen.SignUp.route) },
+                navigateToSignUp = { navController.navigate(AuthRoute.SignUp.route) },
                 navigateToForgotPassword = {
-                    // Navigate to Forgot Password screen
-                    navController.navigate(AuthScreen.Forgot.route)
+                    navController.navigate(AuthRoute.Forgot.route)
                 },
             )
         }
-        composable(route = AuthScreen.SignUp.route) {
+        composable(route = AuthRoute.SignUp.route) {
             RegisterScreen(
                 popBackStack = {
                     navController.popBackStack()
                 },
                 navigateToSignUp = {
                     navController.navigate(HOME_GRAPH) {
-                        popUpTo(AuthScreen.SignUp.route) { inclusive = true }
+                        popUpTo(AuthRoute.SignUp.route) { inclusive = true }
                     }
                 },
             )
         }
-        composable(route = AuthScreen.Forgot.route) {
+        composable(route = AuthRoute.Forgot.route) {
             ForgotPasswordScreen(
                 popBackStack = {
                     navController.popBackStack()
@@ -59,9 +72,18 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
     }
 }
 
-sealed class AuthScreen(val route: String) {
-    data object Splash : AuthScreen(route = "splash")
-    data object Login : AuthScreen(route = "login")
-    data object SignUp : AuthScreen(route = "sign_up")
-    data object Forgot : AuthScreen(route = "forgot")
+
+sealed class AuthRoute(
+    route: String,
+    arguments: List<NamedNavArgument> = emptyList(),
+    themeType: ThemeType = ThemeType.AUTHENTICATION,
+) : BaseDestination(
+    route = route,
+    customArguments = arguments,
+    themeType = themeType,
+) {
+    data object Splash : AuthRoute(route = "splash")
+    data object Login : AuthRoute(route = "login")
+    data object SignUp : AuthRoute(route = "sign_up")
+    data object Forgot : AuthRoute(route = "forgot")
 }

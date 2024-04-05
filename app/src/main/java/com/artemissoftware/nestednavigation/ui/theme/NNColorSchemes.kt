@@ -1,6 +1,7 @@
 package com.artemissoftware.nestednavigation.ui.theme
 
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.ui.graphics.Color
 
 internal val BlueColorScheme = lightColorScheme(
     primary = colorBlue,
@@ -45,4 +46,12 @@ internal val FoodColorScheme = lightColorScheme(
     onPrimary = colorWhite,
     onSecondary = colorWhite,
     onBackground = colorBlack,
+)
+
+val AuthenticationColorScheme = lightColorScheme(
+    primary = Authentication10,
+    secondary = Authentication20,
+    onSecondary = Color.Black,
+    tertiary = Authentication30,
+    onTertiary = Color.Black,
 )

@@ -1,9 +1,10 @@
 package com.artemissoftware.nestednavigation
 
+import androidx.navigation.NavDestination
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
 sealed class MainEvent {
-    data class ThemeChange(val route: String?) : MainEvent()
+    data class ThemeChangeByDestination(val navDestination: NavDestination?) : MainEvent()
 
-    data class Theme_Change(val theme: ThemeType) : MainEvent()
+    data class ThemeChange(val theme: ThemeType) : MainEvent()
 }

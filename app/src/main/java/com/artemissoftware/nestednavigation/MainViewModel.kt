@@ -1,8 +1,9 @@
 package com.artemissoftware.nestednavigation
 
 import androidx.lifecycle.ViewModel
-import com.artemissoftware.nestednavigation.food.FoodRoute
+import androidx.navigation.NavDestination
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
+import com.artemissoftware.nestednavigation.util.extensions.toBaseDestination
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -14,15 +15,15 @@ class MainViewModel : ViewModel() {
 
     fun onTriggerEvent(event: MainEvent) {
         when (event) {
-            is MainEvent.ThemeChange -> {
-                updateTheme(route = event.route)
+            is MainEvent.ThemeChangeByDestination -> {
+                updateTheme(navDestination = event.navDestination)
             }
 
-            is MainEvent.Theme_Change -> update_Theme(event.theme)
+            is MainEvent.ThemeChange -> updateTheme(event.theme)
         }
     }
 
-    private fun update_Theme(themeType: ThemeType) = with(_state) {
+    private fun updateTheme(themeType: ThemeType) = with(_state) {
         if (value.theme != themeType) {
             update {
                 it.copy(theme = themeType)
@@ -30,22 +31,10 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private fun updateTheme(route: String? = null) = with(_state) {
-        val theme = getTheme(route)
-        if (value.theme != theme) {
-            update {
-                it.copy(theme = theme)
-            }
-        }
+    private fun updateTheme(navDestination: NavDestination? = null) = with(_state) {
+        navDestination?.toBaseDestination()?.let { destination ->
+            updateTheme(destination.themeType)
+        } ?: updateTheme(ThemeType.DEFAULT)
     }
 
-    private fun getTheme(route: String? = null): ThemeType {
-        return when {
-            FoodRoute.FoodList.route == route -> FoodRoute.FoodList.themeType
-//            Red.route == route -> Red.themeType
-//            Blue.route == route -> Blue.themeType
-//            Green.route == route -> Green.themeType
-            else -> ThemeType.DEFAULT
-        }
-    }
 }

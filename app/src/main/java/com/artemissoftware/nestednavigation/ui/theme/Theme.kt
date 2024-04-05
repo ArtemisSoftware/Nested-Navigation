@@ -57,14 +57,14 @@ fun NestedNavigationTheme(
             RedColorScheme
         }
         ThemeType.AUTHENTICATION -> {
-            GreenColorScheme
+            AuthenticationColorScheme
         }
 
         ThemeType.DEFAULT -> {
             if (darkTheme) {
                 DarkColorScheme
             } else {
-                LightColorScheme
+                GreenColorScheme//LightColorScheme
             }
         }
     }

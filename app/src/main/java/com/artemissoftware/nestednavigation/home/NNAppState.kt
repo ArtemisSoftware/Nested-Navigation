@@ -1,6 +1,7 @@
 package com.artemissoftware.nestednavigation.home
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.util.trace
 import androidx.navigation.NavDestination
@@ -9,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.artemissoftware.nestednavigation.authentication.AuthRoute
 import com.artemissoftware.nestednavigation.food.FoodRoute
 import com.artemissoftware.nestednavigation.food.navigateToFoodGraph
 import com.artemissoftware.nestednavigation.images.ImageRoute
@@ -24,6 +26,7 @@ import com.artemissoftware.nestednavigation.randomimages.navigateToRandomImagesG
 import com.artemissoftware.nestednavigation.settings.SettingsRoute
 import com.artemissoftware.nestednavigation.settings.navigateToSettingsNavGraph
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
+import com.artemissoftware.nestednavigation.util.extensions.toBaseDestination
 
 class NNAppState(
     val navController: NavHostController,
@@ -103,25 +106,14 @@ class NNAppState(
     fun updateTheme(
         changeTheme: (ThemeType) -> Unit,
     ) {
-        //val route = currentDestination?.route
+        currentDestination?.let { navDestination ->
+            LaunchedEffect(key1 = navDestination){
 
-        currentDestination?.let {
-            val theme = when {
+                val theme = navDestination.toBaseDestination()?.themeType ?: currentTheme
 
-                RandomImageRoute.Image.route == it.route -> RandomImageRoute.Image.themeType
-                RandomImageRoute.ImagesList.route == it.route -> RandomImageRoute.ImagesList.themeType
-
-                FoodRoute.FoodList.route == it.route -> FoodRoute.FoodList.themeType
-                FoodRoute.FoodList.route == it.route -> FoodRoute.FoodList.themeType
-                FoodRoute.Detail.route == it.route -> FoodRoute.Detail.themeType
-//            Red.route == route -> Red.themeType
-//            Blue.route == route -> Blue.themeType
-//            Green.route == route -> Green.themeType
-                else -> currentTheme
+                currentTheme = theme
+                changeTheme.invoke(theme)
             }
-
-            currentTheme = theme
-            changeTheme.invoke(theme)
         }
     }
 }

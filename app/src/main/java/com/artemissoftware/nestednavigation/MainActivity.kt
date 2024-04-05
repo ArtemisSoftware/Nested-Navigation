@@ -14,21 +14,22 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.artemissoftware.nestednavigation.home.HOME_GRAPH
 import com.artemissoftware.nestednavigation.navigation.RootNavigationGraph
 import com.artemissoftware.nestednavigation.product.productNavGraph
-import com.artemissoftware.nestednavigation.randomimages.RANDOM_IMAGES_GRAPH
-import com.artemissoftware.nestednavigation.randomimages.RandomImageRoute
-import com.artemissoftware.nestednavigation.randomimages.RandomImagesListScreen
 import com.artemissoftware.nestednavigation.ui.theme.NestedNavigationTheme
 
 class MainActivity : ComponentActivity() {
@@ -58,12 +59,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             val state = mainViewModel.state.collectAsState().value
             val navController = rememberNavController()
-/*
+
             DisposableEffect(navController) {
                 val observer = LifecycleEventObserver { _, event ->
                     if (event == Lifecycle.Event.ON_CREATE) {
                         val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
-                            mainViewModel.onTriggerEvent(MainEvent.ThemeChange(route = destination.route))
+                            mainViewModel.onTriggerEvent(MainEvent.ThemeChangeByDestination(navDestination = destination))
                         }
                         navController.addOnDestinationChangedListener(listener)
 
@@ -79,11 +80,10 @@ class MainActivity : ComponentActivity() {
                     lifecycle.removeObserver(observer)
                 }
             }
-*/
+
 
             NestedNavigationTheme(themeType = state.theme) {
                 //setStatusBarColor(color = Color.Transparent)
-                //ImageFaceScreen()
 
 //                var statusBarColor by remember {
 //                    mutableStateOf(Color.Yellow)
@@ -95,13 +95,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    //NNSqueleton()
-
                     RootNavigationGraph(
                         navController = navController,
                         startDestination = HOME_GRAPH,
                         changeTheme = {
-                            mainViewModel.onTriggerEvent(MainEvent.Theme_Change(it))
+                            mainViewModel.onTriggerEvent(MainEvent.ThemeChange(it))
                         },
                     )
 
