@@ -75,15 +75,18 @@ sealed class FoodRoute(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     themeType: ThemeType = ThemeType.FOOD,
+    title: String = "",
 ) : BaseDestination(
     route = route,
     customArguments = arguments,
     themeType = themeType,
+    title = title,
 ) {
     data object FoodList : FoodRoute("food")
 
     data object Detail : FoodRoute(
         route = "food_detail",
+        title = "Food Detail",
         arguments = listOf(
             navArgument(
                 name = NavArguments.FOOD_ID,

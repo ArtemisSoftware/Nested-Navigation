@@ -50,7 +50,7 @@ fun HomeScreen(
                     ),
                     title = {
                         Text(
-                            "Medium Top App Bar",
+                            text = appState.getTitle(),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )

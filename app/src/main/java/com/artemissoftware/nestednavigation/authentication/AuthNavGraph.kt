@@ -20,7 +20,7 @@ const val AUTHENTICATION_GRAPH = "auth_graph"
 
 fun NavController.navigateToAuthGraph(navOptions: NavOptions) = navigate(AUTHENTICATION_GRAPH, navOptions)
 
-fun NavController.navigateToLogin() = navigate(AuthRoute.SignUp.getRouteInFull())
+fun NavController.navigateToLogin() = navigate(AuthRoute.Login.getRouteInFull())
 
 fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
     navigation(

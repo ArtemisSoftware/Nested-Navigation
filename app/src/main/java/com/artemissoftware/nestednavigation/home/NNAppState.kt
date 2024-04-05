@@ -81,14 +81,8 @@ class NNAppState(
     @Composable
     fun showTopBar(): Boolean {
         val result = currentDestination?.let {
-            val show = when {
-
-                RandomImageRoute.Image.route == it.route -> false
-                RandomImageRoute.ImagesList.route == it.route -> false
-
-                FoodRoute.FoodList.route == it.route -> false
-                FoodRoute.Detail.getRouteInFull() == it.route -> true
-
+            val show = when (it.route) {
+                FoodRoute.Detail.getRouteInFull() -> true
                 else -> false
             }
 
@@ -116,6 +110,9 @@ class NNAppState(
             }
         }
     }
+
+    @Composable
+    fun getTitle() = currentDestination?.toBaseDestination()?.title ?: ""
 }
 
 @Composable

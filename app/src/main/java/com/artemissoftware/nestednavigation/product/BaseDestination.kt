@@ -11,6 +11,7 @@ abstract class BaseDestination(
     val route: String,
     val customArguments: List<NamedNavArgument> = emptyList(),
     val themeType: ThemeType = ThemeType.DEFAULT,
+    val title: String = ""
 ) {
 
     val gson = GsonBuilder().registerTypeAdapter(RandomImage::class.java, ShapeAdapter()).create()

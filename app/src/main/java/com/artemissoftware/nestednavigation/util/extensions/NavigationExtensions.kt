@@ -12,7 +12,7 @@ fun NavDestination.toBaseDestination() : BaseDestination?{
         RandomImageRoute.ImagesList.route == route -> RandomImageRoute.ImagesList
 
         FoodRoute.FoodList.route == route -> FoodRoute.FoodList
-        FoodRoute.Detail.route == route -> FoodRoute.Detail
+        FoodRoute.Detail.getRouteInFull() == route -> FoodRoute.Detail
 
         AuthRoute.Login.route == route -> AuthRoute.Login
         else -> null
