@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.artemissoftware.nestednavigation.composables.NNSkeleton
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,18 +32,13 @@ fun SettingsScreen(
     //alternateStatusBarColor: (Color) -> Unit,
 ) {
 
-
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceEvenly,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(
-            modifier = Modifier,
-            text = "Current status bar color",
-            fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-            fontWeight = FontWeight.Bold,
-        )
+    NNSkeleton(
+        content = {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
 
                 Button(
                     onClick = {
@@ -53,64 +49,17 @@ fun SettingsScreen(
                     },
                 )
 
-        Text(
-            modifier = Modifier,
-            text = "Current top bar color",
-            fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-            fontWeight = FontWeight.Bold,
-        )
-
-                    Button(
-                        onClick = {
-                            //alternateStatusBarColor(Color.Transparent)
-                        },
-                        content = {
-                            Text(text = "Change top bar color")
-                        },
-                    )
-    }
-
-//    Scaffold(
-//        topBar = {
-//            TopAppBar(
-//                title = { Text("Settings") },
-//                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Green),
-//            )
-//        },
-//        floatingActionButtonPosition = FabPosition.End,
-//        floatingActionButton = {
-//            FloatingActionButton(onClick = {}) {
-//                Text("X")
-//            }
-//        },
-//        content = {
-//            Column(
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .padding(it),
-//                verticalArrangement = Arrangement.Center,
-//                horizontalAlignment = Alignment.CenterHorizontally,
-//            ) {
-//                Button(
-//                    onClick = {
-//                        alternateStatusBarColor(Color.Transparent)
-//                    },
-//                    content = {
-//                        Text(text = "Change status bar color to Transparent")
-//                    },
-//                )
-//            }
-//        },
-//        bottomBar = {
-//            BottomAppBar(
-//                containerColor = Color.Green,
-//                content = {
-//                    Text("BottomAppBar")
-//                },
-//
-//            )
-//        },
-//    )
+                Button(
+                    onClick = {
+                        //alternateStatusBarColor(Color.Transparent)
+                    },
+                    content = {
+                        Text(text = "Change top bar color")
+                    },
+                )
+            }
+        }
+    )
 }
 
 @Preview

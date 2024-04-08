@@ -1,4 +1,4 @@
-package com.artemissoftware.nestednavigation.product
+package com.artemissoftware.nestednavigation.navigation
 
 object NavArguments {
     const val product_details_parameters = "product_details_parameters"

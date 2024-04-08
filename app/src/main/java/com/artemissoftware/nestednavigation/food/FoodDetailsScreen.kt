@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.artemissoftware.nestednavigation.composables.NNSqueleton_3
+import com.artemissoftware.nestednavigation.composables.NNSkeleton
 import com.artemissoftware.nestednavigation.food.FoodConstants.getFood
 import com.artemissoftware.nestednavigation.food.FoodConstants.randomFood
 
@@ -33,7 +32,7 @@ fun FoodDetailsScreen(
         getFood(foodId)
     }
 
-    NNSqueleton_3 (
+    NNSkeleton (
         content = {
             Column(
                 modifier = Modifier

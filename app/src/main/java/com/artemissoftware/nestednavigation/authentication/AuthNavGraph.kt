@@ -5,15 +5,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.artemissoftware.nestednavigation.food.FOOD_GRAPH
-import com.artemissoftware.nestednavigation.food.FoodRoute
 import com.artemissoftware.nestednavigation.home.HOME_GRAPH
-import com.artemissoftware.nestednavigation.product.BaseDestination
-import com.artemissoftware.nestednavigation.product.NavArguments
+import com.artemissoftware.nestednavigation.navigation.BaseDestination
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
 const val AUTHENTICATION_GRAPH = "auth_graph"

@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import com.artemissoftware.nestednavigation.food.foodNavGraph
 import com.artemissoftware.nestednavigation.food.navigateToFoodDetail
 import com.artemissoftware.nestednavigation.randomimages.randomImagesNavGraph
+import com.artemissoftware.nestednavigation.settings.settingsNavGraph
 
 const val HOME_GRAPH = "home_graph"
 
@@ -27,44 +28,7 @@ fun HomeNavGraph(
             }
         )
         foodNavGraph(navController)
-  /*
-        //version 1
-        galleryNavGraph(navController)
-        imagesNavGraph(navController)
         settingsNavGraph(navController, {})
-*/
-
-
-
-
-//        composable(route = MainRoute.Home.route) {
-//            ScreenContent(
-//                name = "Home",
-//                onClick = {
-//                    navController.navigate(GALLERY_GRAPH)
-//                },
-//            )
-//        }
-//        composable(route = MainRoute.Profile.route) {
-//            ScreenContent(
-//                name = "Profile",
-//                onClick = {
-//                    navController.navigate(IMAGES_GRAPH)
-//                },
-//            )
-//        }
-//        composable(route = MainRoute.Settings.route) {
-//            SettingsScreen(
-// //                name = "Settings",
-// //                onClick = {
-// //                    // navController.navigate(Graph.DETAILS)
-// //                },
-//            )
-//        }
-//
-//
-//        imagesNavGraph(navController)
-//        // detailsNavGraph(navController = navController)
     }
 }
 

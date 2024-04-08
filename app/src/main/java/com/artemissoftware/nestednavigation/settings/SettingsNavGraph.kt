@@ -6,7 +6,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.artemissoftware.nestednavigation.images.IMAGES_GRAPH
 
 const val SETTINGS_GRAPH = "settings_graph"
 

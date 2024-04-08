@@ -22,7 +22,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -34,11 +33,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.artemissoftware.nestednavigation.composables.NNSqueleton_3
+import com.artemissoftware.nestednavigation.composables.NNSkeleton
 import com.artemissoftware.nestednavigation.randomimages.RandomImagesConstants.updateList
 import com.artemissoftware.nestednavigation.ui.theme.randomImage1
 import com.artemissoftware.nestednavigation.ui.theme.randomImage5
-import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,7 +52,7 @@ fun RandomImagesListScreen(
     }
 
 
-    NNSqueleton_3(
+    NNSkeleton(
         topBar = {
             TopAppBar(
                 title = { Text("Random Images", color = Color.Black) },

@@ -1,4 +1,4 @@
-package com.artemissoftware.nestednavigation.product
+package com.artemissoftware.nestednavigation.navigation
 
 object NavRouteName {
     const val product_list = "product_list"

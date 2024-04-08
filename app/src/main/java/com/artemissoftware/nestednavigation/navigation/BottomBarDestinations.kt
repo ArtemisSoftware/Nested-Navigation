@@ -2,11 +2,9 @@ package com.artemissoftware.nestednavigation.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Fastfood
-import androidx.compose.material.icons.filled.ImageAspectRatio
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Shuffle
 import com.artemissoftware.nestednavigation.food.FoodRoute
-import com.artemissoftware.nestednavigation.images.ImageRoute
 import com.artemissoftware.nestednavigation.randomimages.RandomImageRoute
 import com.artemissoftware.nestednavigation.settings.SettingsRoute
 
@@ -24,17 +22,11 @@ object BottomBarDestinations {
         icon = Icons.Default.Fastfood,
     )
 
-    val images = TopLevelDestination(
-        route = ImageRoute.Images.route,
-        title = "Images",
-        icon = Icons.Default.ImageAspectRatio,
-    )
-
     val settings = TopLevelDestination(
         route = SettingsRoute.Settings.route,
         title = "Settings",
         icon = Icons.Default.Settings,
     )
 
-    val destinations = listOf(random, food, images, settings)
+    val destinations = listOf(random, food, settings)
 }

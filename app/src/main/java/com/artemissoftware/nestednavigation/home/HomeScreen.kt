@@ -17,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import com.artemissoftware.nestednavigation.composables.NNNavigationBar
-import com.artemissoftware.nestednavigation.composables.NNSqueleton_3
+import com.artemissoftware.nestednavigation.composables.NNSkeleton
 import com.artemissoftware.nestednavigation.randomimages.RANDOM_IMAGES_GRAPH
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
@@ -35,7 +35,7 @@ fun HomeScreen(
         changeTheme = changeTheme,
     )
 
-    NNSqueleton_3(
+    NNSkeleton(
         content = {
             AnimatedVisibility(
                 visible = appState.showTopBar(),

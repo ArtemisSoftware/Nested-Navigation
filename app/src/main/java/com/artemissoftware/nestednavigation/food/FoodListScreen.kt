@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -25,19 +24,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.artemissoftware.nestednavigation.R
 import com.artemissoftware.nestednavigation.food.FoodConstants.foods
-import com.artemissoftware.nestednavigation.composables.NNSqueleton_3
+import com.artemissoftware.nestednavigation.composables.NNSkeleton
 import com.artemissoftware.nestednavigation.ui.theme.NestedNavigationTheme
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FoodListScreen(
-    navigateToSearch: () -> Unit,
     navigateToDetails: (Int) -> Unit,
 ) {
-    NNSqueleton_3(
+    NNSkeleton(
         topBar = {
             TopAppBar(
                 title = { Text("Food Gallery", color = Color.White) },
@@ -111,9 +108,8 @@ private fun GalleryCard(
 @Preview
 @Composable
 private fun FoodListScreenPreview() {
-    NestedNavigationTheme(themeType = ThemeType.GALLERY) {
+    NestedNavigationTheme(themeType = ThemeType.FOOD) {
         FoodListScreen(
-            navigateToSearch = {},
             navigateToDetails = {},
         )
     }

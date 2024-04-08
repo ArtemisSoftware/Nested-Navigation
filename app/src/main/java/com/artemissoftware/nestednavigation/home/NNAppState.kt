@@ -10,18 +10,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.artemissoftware.nestednavigation.authentication.AuthRoute
 import com.artemissoftware.nestednavigation.food.FoodRoute
 import com.artemissoftware.nestednavigation.food.navigateToFoodGraph
-import com.artemissoftware.nestednavigation.images.ImageRoute
-import com.artemissoftware.nestednavigation.images.navigateToImagesGraph
 import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.destinations
 import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.food
-import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.images
 import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.random
 import com.artemissoftware.nestednavigation.navigation.BottomBarDestinations.settings
 import com.artemissoftware.nestednavigation.navigation.TopLevelDestination
-import com.artemissoftware.nestednavigation.randomimages.RandomImageRoute
 import com.artemissoftware.nestednavigation.randomimages.navigateToRandomImagesGraph
 import com.artemissoftware.nestednavigation.settings.SettingsRoute
 import com.artemissoftware.nestednavigation.settings.navigateToSettingsNavGraph
@@ -39,8 +34,7 @@ class NNAppState(
         @Composable get() = when (currentDestination?.route) {
             random.route -> random
             food.route -> food
-            ImageRoute.Images.route -> images
-            SettingsRoute.Settings.route -> settings
+            settings.route -> settings
             else -> null
         }
 
@@ -69,11 +63,7 @@ class NNAppState(
             when (topLevelDestination.route) {
                 random.route -> navController.navigateToRandomImagesGraph(topLevelNavOptions)
                 food.route -> navController.navigateToFoodGraph(topLevelNavOptions)
-                images.route -> navController.navigateToImagesGraph(topLevelNavOptions)
                 settings.route -> navController.navigateToSettingsNavGraph(topLevelNavOptions)
-//                search.route -> navController.navigateToSearchGraph(topLevelNavOptions)
-//                bookmark.route -> navController.navigateToBookmarkGraph(topLevelNavOptions)
-//                news.route -> navController.navigateToNewsGraph(topLevelNavOptions)
             }
         }
     }

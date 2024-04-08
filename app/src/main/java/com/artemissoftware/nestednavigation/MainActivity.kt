@@ -29,7 +29,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.artemissoftware.nestednavigation.home.HOME_GRAPH
 import com.artemissoftware.nestednavigation.navigation.RootNavigationGraph
-import com.artemissoftware.nestednavigation.product.productNavGraph
 import com.artemissoftware.nestednavigation.ui.theme.NestedNavigationTheme
 
 class MainActivity : ComponentActivity() {
@@ -124,22 +123,6 @@ fun setStatusBarColor(color: Color) {
     }
 }
 
-@Composable
-fun ProductNavHost(navController: NavHostController) {
-    val BASE_ROUTE = "base"
-    val PRODUCT_ROUTE = "product"
-
-    NavHost(
-        navController = navController,
-        route = BASE_ROUTE,
-        startDestination = PRODUCT_ROUTE,
-    ) {
-        productNavGraph(
-            route = PRODUCT_ROUTE,
-            navController = navController,
-        )
-    }
-}
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {

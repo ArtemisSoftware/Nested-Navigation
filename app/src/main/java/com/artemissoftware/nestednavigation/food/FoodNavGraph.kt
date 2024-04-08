@@ -8,8 +8,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.artemissoftware.nestednavigation.product.BaseDestination
-import com.artemissoftware.nestednavigation.product.NavArguments
+import com.artemissoftware.nestednavigation.navigation.BaseDestination
+import com.artemissoftware.nestednavigation.navigation.NavArguments
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
 const val FOOD_GRAPH = "food_graph"
@@ -32,9 +32,6 @@ fun NavGraphBuilder.foodNavGraph(
             arguments = FoodRoute.FoodList.arguments
         ) {
             FoodListScreen(
-                navigateToSearch = {
-                    navController.navigate("search/Berries")
-                },
                 navigateToDetails = {
                     navController.navigate(FoodRoute.Detail.withCustomArgs(it))
                 },

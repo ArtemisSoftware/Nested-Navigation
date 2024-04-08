@@ -8,9 +8,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.artemissoftware.nestednavigation.food.FoodConstants
-import com.artemissoftware.nestednavigation.product.BaseDestination
-import com.artemissoftware.nestednavigation.product.NavArguments
-import com.artemissoftware.nestednavigation.product.NavArguments.RANDOM_IMAGE_RECIPIENT
+import com.artemissoftware.nestednavigation.navigation.BaseDestination
+import com.artemissoftware.nestednavigation.navigation.NavArguments
+import com.artemissoftware.nestednavigation.navigation.NavArguments.RANDOM_IMAGE_RECIPIENT
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 
 const val RANDOM_IMAGES_GRAPH = "random_images_graph"
@@ -42,7 +42,8 @@ fun NavGraphBuilder.randomImagesNavGraph(
             route = RandomImageRoute.Image.getRouteInFull(),
             arguments = RandomImageRoute.Image.arguments,
         ) {
-            val randomImage = it.arguments?.let { image -> ImageNavType().parseValue(image.get(NavArguments.RANDOM_IMAGE) as String) }!!
+            val randomImage = it.arguments?.let { image -> ImageNavType().parseValue(image.get(
+                NavArguments.RANDOM_IMAGE) as String) }!!
 
             RandomImageScreen(
                 randomImage = randomImage,

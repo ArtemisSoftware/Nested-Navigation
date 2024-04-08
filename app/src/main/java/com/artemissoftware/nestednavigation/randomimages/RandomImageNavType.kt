@@ -10,23 +10,10 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonParseException
 import java.lang.reflect.Type
 
-class RandomImageNavType : NavType<RandomImage>(isNullableAllowed = false) {
-
-    override fun get(bundle: Bundle, key: String): RandomImage? {
-        return bundle.getString(key)?.let { parseValue(it) }
-    }
-
-    override fun parseValue(value: String): RandomImage {
-        return Gson().fromJson(value, RandomImage::class.java)
-    }
-    override fun put(bundle: Bundle, key: String, value: RandomImage) {
-        bundle.putString(key, Gson().toJson(value))
-    }
-}
 
 class ImageNavType : NavType<RandomImage?>(isNullableAllowed = false) {
 
-    val gson = GsonBuilder().registerTypeAdapter(RandomImage::class.java, ShapeAdapter()).create()
+    val gson = GsonBuilder().registerTypeAdapter(RandomImage::class.java, RandomImageAdapter()).create()
 
     override fun get(bundle: Bundle, key: String): RandomImage? {
         return bundle.getString(key)?.let { parseValue(it) }
@@ -44,7 +31,7 @@ class ImageNavType : NavType<RandomImage?>(isNullableAllowed = false) {
 }
 
 // Custom JsonDeserializer for deserializing Shape objects
-class ShapeAdapter : JsonDeserializer<RandomImage> {
+class RandomImageAdapter : JsonDeserializer<RandomImage> {
     override fun deserialize(json: JsonElement, typeOfT: Type?, context: JsonDeserializationContext?): RandomImage {
         val jsonObject = json.asJsonObject
         val type = jsonObject.get("type").asString

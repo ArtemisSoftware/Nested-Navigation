@@ -1,9 +1,9 @@
-package com.artemissoftware.nestednavigation.product
+package com.artemissoftware.nestednavigation.navigation
 
 import android.net.Uri
 import androidx.navigation.NamedNavArgument
 import com.artemissoftware.nestednavigation.randomimages.RandomImage
-import com.artemissoftware.nestednavigation.randomimages.ShapeAdapter
+import com.artemissoftware.nestednavigation.randomimages.RandomImageAdapter
 import com.artemissoftware.nestednavigation.ui.theme.ThemeType
 import com.google.gson.GsonBuilder
 
@@ -14,7 +14,7 @@ abstract class BaseDestination(
     val title: String = ""
 ) {
 
-    val gson = GsonBuilder().registerTypeAdapter(RandomImage::class.java, ShapeAdapter()).create()
+    val gson = GsonBuilder().registerTypeAdapter(RandomImage::class.java, RandomImageAdapter()).create()
 
 
     fun getRouteInFull(): String {
